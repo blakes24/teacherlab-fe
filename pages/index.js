@@ -1,17 +1,15 @@
 import Head from 'next/head'
-// import styles from '../styles/Home.module.css'
+import Layout from '../components/layout'
+import Login from '../components/login';
 
 export default function Home() {
   return (
-    <div>
+    <Layout>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>main</main>
-
-      <footer>footer</footer>
-    </div>
+      <Login></Login>
+    </Layout>
   )
 }
