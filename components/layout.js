@@ -8,7 +8,9 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <nav className="p-4 bg-blue text-white">TEACHER LAB</nav>
+      <nav className="p-4 bg-blue text-white uppercase text-xl tracking-wider">
+        Teacher Lab
+      </nav>
       <main>{children}</main>
       {/* <footer>footer</footer> */}
     </>
