@@ -1,4 +1,5 @@
-import Head from 'next/head'
+import UserContext from "../components/user-context";
+import Head from "next/head";
 
 export default function Home() {
   return (
@@ -7,7 +8,13 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>dashboard</div>
+      <UserContext.Consumer>
+        {({ user }) => (
+          <>
+            <div>dashboard {user.email}</div>
+          </>
+        )}
+      </UserContext.Consumer>
     </>
-  )
+  );
 }

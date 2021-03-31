@@ -1,4 +1,5 @@
 import { fetcher } from "./utils";
+import storage from "../libs/storage";
 
 // TODO
 // logout
@@ -9,9 +10,17 @@ const login = (credentials) => {
     method: "POST",
     body: JSON.stringify(credentials),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      "Content-Type": "application/json",
+    },
   });
 };
 
-export { login };
+const getLoggedInUser = () => {
+  return storage.get("user");
+};
+
+const isAuthenticated = () => {
+  return storage.get("AUTH_TOKEN");
+};
+
+export { login, isAuthenticated, getLoggedInUser };
