@@ -1,4 +1,5 @@
 import UnitCard from "../unit/unit-card";
+import Button from "../common/button";
 import { SUBJECTS } from "../../libs/constants";
 import PropTypes from "prop-types";
 import { useState } from "react";
@@ -28,9 +29,12 @@ export default function DashboardColumn({ subject }) {
               get started.
             </div>
 
-            <button className="w-7/12 shadow-md bg-green text-white font-light p-2 text-xl self-center mt-36" onClick={toggleUnitCard}>
-              Add {subject} Unit
-            </button>
+            <Button
+              onClick={toggleUnitCard}
+              text={`Add ${subject} Unit`}
+              classNames="mt-36 w-7/12 self-center"
+              size="md"
+            ></Button>
           </>
         )}
       </div>
