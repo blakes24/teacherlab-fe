@@ -1,18 +1,20 @@
 import storage from "../libs/storage";
+import UserContext from "../components/context/user-context";
 import { login } from "../services/auth";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(UserContext);
 
   async function handleAuthentication(e) {
     e.preventDefault();
 
     try {
-      const { token, error } = await login({
+      const { token, error, user } = await login({
         email,
         password,
       });
@@ -20,7 +22,13 @@ export default function Login() {
       if (error) {
         console.log(error.message);
       } else {
+        // set user for UserContext.Provider
+        setUser(user);
+
+        // persist token and user in localStorage
         storage.set("AUTH_TOKEN", token);
+        storage.set("user", user);
+
         router.push("/");
       }
     } catch (e) {

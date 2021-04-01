@@ -1,20 +1,26 @@
-const colors = require('tailwindcss/colors');
+const colors = require("tailwindcss/colors");
 
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx}', './components/**/*.{js,ts,jsx}'],
+  purge: ["./pages/**/*.{js,ts,jsx}", "./components/**/*.{js,ts,jsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: (theme) => ({
+        abc: "url('/abc.png')",
+      }),
+    },
     colors: {
       ...colors,
-      'blue': '#264653',
-      'green': '#2A9D8F'
-    }
+      blue: "#264653",
+      green: "#2A9D8F",
+    },
   },
   variants: {
     extend: {
-      backgroundColor: ['active'],
+      backgroundColor: ["active"],
     },
   },
-  plugins: [],
-}
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
+};
