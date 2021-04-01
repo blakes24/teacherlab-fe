@@ -1,6 +1,6 @@
 // import '../styles/globals.css'
 import "tailwindcss/tailwind.css";
-import UserContext from "../components/user-context";
+import UserContext from "../components/context/user-context";
 import Layout from "../components/layout";
 import storage from "../libs/storage";
 import { isAuthenticated, getLoggedInUser } from "../services/auth";

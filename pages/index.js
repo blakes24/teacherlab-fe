@@ -1,17 +1,18 @@
-import UserContext from "../components/user-context";
+import UserContext from "../components/context/user-context";
 import Head from "next/head";
+import CoachDashboard from "../components/dashboard/coach-dashboard";
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <UserContext.Consumer>
         {({ user }) => (
           <>
-            <div>dashboard {user.email}</div>
+            {user.admin ? (
+              <CoachDashboard></CoachDashboard>
+            ) : (
+              <div>Teacher Dashboard</div>
+            )}
           </>
         )}
       </UserContext.Consumer>
