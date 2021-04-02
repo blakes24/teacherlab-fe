@@ -14,6 +14,7 @@ export default function Button({
   size,
   full,
   type,
+  rounded
 }) {
   const isSmall = size === SIZES.sm;
   const isMedium = size === SIZES.md;
@@ -21,9 +22,11 @@ export default function Button({
 
   const baseBtnClasses = "bg-green shadow-md text-white font-light text-xl";
   const btnClassNames = classnames(baseBtnClasses, classNames, {
+    "p-0.5": isSmall,
     "p-2": isMedium,
     "p-3": isLarge,
     "w-full": full,
+    "rounded": rounded
   });
 
   return (
@@ -40,4 +43,5 @@ Button.propTypes = {
   size: PropTypes.oneOf(Object.values(SIZES)),
   full: PropTypes.bool,
   type: PropTypes.string,
+  rounded: PropTypes.bool,
 };
