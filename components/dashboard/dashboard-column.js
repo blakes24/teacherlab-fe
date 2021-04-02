@@ -1,4 +1,4 @@
-import UnitCard from "../unit/unit-card";
+import UnitCardContainer from "../unit/unit-card-container";
 import Button from "../common/button";
 import { SUBJECTS } from "../../libs/constants";
 import PropTypes from "prop-types";
@@ -11,15 +11,17 @@ export default function DashboardColumn({ subject }) {
   // props
   // image
 
-  function toggleUnitCard() {
-    setShowUnitCard(true);
+  function toggleUnitCard(val) {
+    setShowUnitCard(val);
   }
 
   return (
     <>
-      <div className="flex pt-36 flex-col">
+      <div className="flex flex-col justify-center">
         {showUnitCard ? (
-          <UnitCard></UnitCard>
+          <UnitCardContainer
+            closeAction={toggleUnitCard.bind({}, false)}
+          ></UnitCardContainer>
         ) : (
           <>
             <div className="w-40 h-40 bg-abc bg-center bg-contain bg-no-repeat bg-blue rounded-full self-center"></div>
@@ -30,10 +32,11 @@ export default function DashboardColumn({ subject }) {
             </div>
 
             <Button
-              onClick={toggleUnitCard}
+              onClick={toggleUnitCard.bind({}, true)}
               text={`Add ${subject} Unit`}
               classNames="mt-36 w-7/12 self-center"
               size="md"
+              type="button"
             ></Button>
           </>
         )}
