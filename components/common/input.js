@@ -7,7 +7,7 @@ const TYPES = {
   date: "date",
 };
 
-export default function Input({ label, type, placeholder, onChange }) {
+export default function Input({ label, type, placeholder, onChange, required }) {
   const inputClasses =
     "mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0";
 
@@ -23,6 +23,7 @@ export default function Input({ label, type, placeholder, onChange }) {
             id={addUnderscoresToString(label)}
             className={inputClasses}
             type="text"
+            required={required}
           />
         )}
         {type === TYPES.number && (
@@ -32,6 +33,7 @@ export default function Input({ label, type, placeholder, onChange }) {
             type="number"
             min="1"
             max="20"
+            required={required}
           />
         )}
         {type === TYPES.date && (
@@ -39,6 +41,7 @@ export default function Input({ label, type, placeholder, onChange }) {
             id={addUnderscoresToString(label)}
             className={inputClasses}
             type="date"
+            required={required}
           />
         )}
       </label>
@@ -51,4 +54,5 @@ Input.propTypes = {
   type: PropTypes.oneOf(Object.values(TYPES)).isRequired,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  required: PropTypes.bool,
 };
