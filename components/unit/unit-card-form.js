@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default function UnitCardForm({ closeAction }) {
   function handleUnitCreation(e) {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   return (
