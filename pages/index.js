@@ -1,6 +1,6 @@
 import UserContext from "../components/context/user-context";
 import Head from "next/head";
-import CoachDashboard from "../components/dashboard/coach-dashboard";
+import Dashboard from "../components/dashboard/dashboard";
 
 export default function Home() {
   return (
@@ -8,11 +8,7 @@ export default function Home() {
       <UserContext.Consumer>
         {({ user }) => (
           <>
-            {user.admin ? (
-              <CoachDashboard></CoachDashboard>
-            ) : (
-              <div>Teacher Dashboard</div>
-            )}
+            <Dashboard user={user}></Dashboard>
           </>
         )}
       </UserContext.Consumer>

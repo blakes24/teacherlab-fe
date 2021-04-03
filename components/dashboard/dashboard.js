@@ -1,10 +1,10 @@
 import DashboardColumn from "./dashboard-column";
-import Input from "../common/input";
+import PropTypes from "prop-types";
 import { getSubjects } from "../../services/user";
 import { SUBJECTS } from "../../libs/constants";
 import { useEffect, useState } from "react";
 
-export default function CoachDashboard() {
+export default function Dashboard({ user }) {
   const [subjectsByGrade, setSubjectsByGrade] = useState([]);
   const [allSubjects, setAllSubjects] = useState([]);
   const [selectedGrade, setSelectedGrade] = useState("5");
@@ -34,16 +34,23 @@ export default function CoachDashboard() {
         <DashboardColumn
           subject={getSubjectData(SUBJECTS.ela)}
           subjectName={SUBJECTS.ela}
+          user={user}
         ></DashboardColumn>
         <DashboardColumn
           subject={getSubjectData(SUBJECTS.math)}
           subjectName={SUBJECTS.math}
+          user={user}
         ></DashboardColumn>
         <DashboardColumn
           subject={getSubjectData(SUBJECTS.science)}
           subjectName={SUBJECTS.science}
+          user={user}
         ></DashboardColumn>
       </div>
     </>
   );
+}
+
+Dashboard.propTypes = {
+  user: PropTypes.object
 }
