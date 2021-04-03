@@ -10,6 +10,7 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.3.2",
     "classnames": "^2.3.0",
+    "date-fns": "^2.19.0",
     "next": "10.0.9",
     "prettier": "^2.2.1",
     "prop-types": "^15.7.2",

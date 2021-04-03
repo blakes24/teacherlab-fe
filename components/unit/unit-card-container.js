@@ -1,14 +1,19 @@
 import UnitCardForm from "./unit-card-form";
+import UnitCard from "./unit-card";
 import PropTypes from "prop-types";
 import { UNIT_FORM_DATA_SYMBOLS } from "../../libs/constants";
 import { useState } from "react";
 
-export default function UnitCardContainer({ closeAction }) {
+export default function UnitCardContainer({
+  closeAction,
+  subject,
+  showUnitCard,
+}) {
   const [unitNumber, setUnitNumber] = useState("1");
   const [unitTitle, setUnitTitle] = useState("");
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const [reviewDate, setReviewDate] = useState();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [reviewDate, setReviewDate] = useState("");
 
   function handleUnitFormDataChange(inputSymbol, event) {
     const value = event.target.value;
@@ -32,17 +37,35 @@ export default function UnitCardContainer({ closeAction }) {
     }
   }
 
+  function handleNewUnitData(data) {
+    subject.units.push(data);
+    showUnitCard = true;
+    closeAction();
+  }
+
   return (
-    <div className="bg-blue w-72 mx-auto p-7  pt-4">
-      <UnitCardForm
-        onChange={handleUnitFormDataChange}
-        closeAction={closeAction}
-        unitNumber={unitNumber}
-      ></UnitCardForm>
+    <div className="bg-blue w-72 mx-auto p-7 pt-4">
+      {showUnitCard ? (
+        <UnitCard unit={subject.units[0]} subjectName={subject.name}></UnitCard>
+      ) : (
+        <UnitCardForm
+          onChange={handleUnitFormDataChange}
+          handleNewUnitData={handleNewUnitData}
+          closeAction={closeAction}
+          unitNumber={unitNumber}
+          unitTitle={unitTitle}
+          startDate={startDate}
+          endDate={endDate}
+          reviewDate={reviewDate}
+          subjectId={subject.id}
+        ></UnitCardForm>
+      )}
     </div>
   );
 }
 
 UnitCardContainer.propTypes = {
   closeAction: PropTypes.func,
+  subject: PropTypes.object,
+  showUnitCard: PropTypes.bool,
 };
