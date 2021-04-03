@@ -1,5 +1,6 @@
 import storage from "../libs/storage";
 import UserContext from "../components/context/user-context";
+import Button from "../components/common/button";
 import { login } from "../services/auth";
 import { useRouter } from "next/router";
 import { useState, useContext } from "react";
@@ -56,12 +57,13 @@ export default function Login() {
           onChange={(event) => setPassword(event.target.value)}
           className="w-full p-4 bg-gray-100 mt-4"
         />
-        <button
-          className="w-full bg-green text-white p-3 mt-7 font-semibold text-xl"
+        <Button
+          text="Login"
+          size="lg"
+          classNames="mt-7"
           type="submit"
-        >
-          Login
-        </button>
+          full
+        ></Button>
       </form>
     </div>
   );
