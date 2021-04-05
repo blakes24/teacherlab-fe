@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from "next/head";
 
 export default function Layout({ children }) {
   return (
@@ -8,11 +8,11 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <nav className="p-4 bg-blue text-white uppercase text-xl tracking-wider">
+      <nav className="p-4 bg-blue text-white uppercase text-xl tracking-wider sticky top-0">
         Teacher Lab
       </nav>
       <main>{children}</main>
       {/* <footer>footer</footer> */}
     </>
-  )
+  );
 }

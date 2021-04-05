@@ -44,6 +44,8 @@ export default function UnitCardForm({
         value={unitNumber}
         type="number"
         label="unit number"
+        gray
+        full
         required
       ></Input>
       <Input
@@ -51,6 +53,8 @@ export default function UnitCardForm({
         value={unitTitle}
         type="text"
         label="unit title"
+        gray
+        full
         required
       ></Input>
       <Input
@@ -58,6 +62,8 @@ export default function UnitCardForm({
         value={startDate}
         type="date"
         label="start date"
+        gray
+        full
         required
       ></Input>
       <Input
@@ -65,6 +71,8 @@ export default function UnitCardForm({
         value={endDate}
         type="date"
         label="end date"
+        gray
+        full
         required
       ></Input>
       <Input
@@ -72,6 +80,8 @@ export default function UnitCardForm({
         value={reviewDate}
         type="date"
         label="review date"
+        gray
+        full
         required
       ></Input>
       <div className="flex justify-around">

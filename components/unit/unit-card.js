@@ -24,7 +24,9 @@ export default function UnitCard({ unit, subjectName }) {
         type="text"
         label="unit duration"
         value={unitDuration}
+        gray
         readonly
+        full
       />
       <Input
         inputClass="text-center text-lg font-light tracking-wide p-1"
@@ -33,7 +35,9 @@ export default function UnitCard({ unit, subjectName }) {
         type="text"
         label="final review"
         value={reviewDate}
+        gray
         readonly
+        full
       />
     </div>
   );
