@@ -17,13 +17,25 @@ export default function Input({
   readonly,
   labelClass,
   inputClass,
+  gray,
+  full,
+  placeholder,
 }) {
   const inputClasses = cx(
-    "mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0",
+    "mt-1 block rounded-md border-transparent focus:ring-0",
+    {
+      "w-full": full,
+      "bg-gray-100 focus:border-gray-500 focus:bg-white": gray,
+      "text-black": !gray,
+    },
     inputClass
   );
   const labelClassNames = cx("block", labelClass);
-  const inputId = `${addUnderscoresToString(label)}${generateRandomId()}`;
+  const labelSpanClassNames = cx("uppercase font-light", {
+    "text-white": gray,
+  });
+  const inputId =
+    label && `${addUnderscoresToString(label)}${generateRandomId()}`;
 
   return (
     <>
@@ -31,7 +43,7 @@ export default function Input({
         htmlFor={addUnderscoresToString(label)}
         className={labelClassNames}
       >
-        <span className="uppercase text-white font-light">{label}</span>
+        {label && <span className={labelSpanClassNames}>{label}</span>}
         {type === TYPES.text && (
           <input
             id={inputId}
@@ -65,6 +77,7 @@ export default function Input({
             onChange={onChange}
             required={required}
             readOnly={readonly}
+            placeholder={placeholder}
           />
         )}
       </label>
@@ -73,7 +86,7 @@ export default function Input({
 }
 
 Input.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   type: PropTypes.oneOf(Object.values(TYPES)).isRequired,
   onChange: PropTypes.func,
   required: PropTypes.bool,
@@ -81,4 +94,6 @@ Input.propTypes = {
   readonly: PropTypes.bool,
   labelClass: PropTypes.string,
   inputClass: PropTypes.string,
+  full: PropTypes.bool,
+  gray: PropTypes.bool,
 };
