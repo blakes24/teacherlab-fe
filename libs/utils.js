@@ -1,4 +1,6 @@
 export const addUnderscoresToString = function (str) {
+  if (!str) return;
+
   const strArr = str.split(" ");
 
   if (strArr.length <= 1) return str;
