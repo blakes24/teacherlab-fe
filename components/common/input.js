@@ -34,15 +34,11 @@ export default function Input({
   const labelSpanClassNames = cx("uppercase font-light", {
     "text-white": gray,
   });
-  const inputId =
-    label && `${addUnderscoresToString(label)}${generateRandomId()}`;
+  const inputId = label && addUnderscoresToString(label);
 
   return (
     <>
-      <label
-        htmlFor={addUnderscoresToString(label)}
-        className={labelClassNames}
-      >
+      <label htmlFor={inputId} className={labelClassNames}>
         {label && <span className={labelSpanClassNames}>{label}</span>}
         {type === TYPES.text && (
           <input

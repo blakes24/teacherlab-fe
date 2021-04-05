@@ -1,12 +1,29 @@
 import UnitFormNav from "../../components/unit/unit-form-nav";
+import UnitFormSection from "../../components/unit/unit-form-section";
+import UnitFormDates from "../../components/unit/unit-form-dates";
 import Input from "../../components/common/input";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setStartDate,
+  setEndDate,
+  setReviewDate,
+  setUnit,
+  selectUnit,
+  selectStartDate,
+  selectEndDate,
+  selectReviewDate,
+} from "../../store/unitSlicer";
 import { getUnit } from "../../services/unit";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function UnitForm() {
+  const unit = useSelector(selectUnit);
+  const startDate = useSelector(selectStartDate);
+  const endDate = useSelector(selectEndDate);
+  const reviewDate = useSelector(selectReviewDate);
+  const dispatch = useDispatch();
   const router = useRouter();
-  const [unit, setUnit] = useState();
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -14,7 +31,7 @@ export default function UnitForm() {
 
     try {
       getUnit(id).then((unitData) => {
-        setUnit(unitData);
+        dispatch(setUnit(unitData));
       });
     } catch (e) {
       console.log(e);
@@ -28,11 +45,26 @@ export default function UnitForm() {
       </div>
       <div className="col-span-7 col-start-5 mt-14">
         <div className="flex flex-col space-y-4">
-          <div className="py-3 bg-gray-200 flex items-center justify-around">
-            <Input label="start date" type="date" />
-            <Input label="end date" type="date" />
-            <Input label="review date" type="date" />
-          </div>
+          <UnitFormSection>
+            <Input
+              label="start date"
+              type="date"
+              value={startDate}
+              onChange={(event) => dispatch(setStartDate(event.target.value))}
+            />
+            <Input
+              label="end date"
+              type="date"
+              value={endDate}
+              onChange={(event) => dispatch(setEndDate(event.target.value))}
+            />
+            <Input
+              label="review date"
+              type="date"
+              value={reviewDate}
+              onChange={(event) => dispatch(setReviewDate(event.target.value))}
+            />
+          </UnitFormSection>
           <div className="h-16 bg-gray-200 text-white flex items-center justify-center text-2xl font-extrabold">
             2
           </div>
