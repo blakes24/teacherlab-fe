@@ -1,26 +1,14 @@
 import UnitFormNav from "../../components/unit/unit-form-nav";
 import UnitFormSection from "../../components/unit/unit-form-section";
-import Input from "../../components/common/input";
+import UnitFormDates from "../../components/unit/unit-form-dates";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setStartDate,
-  setEndDate,
-  setReviewDate,
-  setUnit,
-  selectUnit,
-  selectStartDate,
-  selectEndDate,
-  selectReviewDate,
-} from "../../store/unitSlicer";
+import { setUnit, updateUnitThunk } from "../../store/unit-slicer";
 import { getUnit } from "../../services/unit";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function UnitForm() {
-  const unit = useSelector(selectUnit);
-  const startDate = useSelector(selectStartDate);
-  const endDate = useSelector(selectEndDate);
-  const reviewDate = useSelector(selectReviewDate);
+  const unit = useSelector((state) => state.unit);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -37,6 +25,14 @@ export default function UnitForm() {
     }
   }, [router.isReady]);
 
+  const handleUnitUpdate = async (unitId) => {
+    try {
+      await dispatch(updateUnitThunk(unitId));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-4 w-3/5 mx-auto relative">
@@ -45,24 +41,7 @@ export default function UnitForm() {
       <div className="col-span-7 col-start-5 mt-14">
         <div className="flex flex-col space-y-4">
           <UnitFormSection>
-            <Input
-              label="start date"
-              type="date"
-              value={startDate}
-              onChange={(event) => dispatch(setStartDate(event.target.value))}
-            />
-            <Input
-              label="end date"
-              type="date"
-              value={endDate}
-              onChange={(event) => dispatch(setEndDate(event.target.value))}
-            />
-            <Input
-              label="review date"
-              type="date"
-              value={reviewDate}
-              onChange={(event) => dispatch(setReviewDate(event.target.value))}
-            />
+            <UnitFormDates handleUpdate={() => handleUnitUpdate(unit.id)} />
           </UnitFormSection>
           <div className="h-16 bg-gray-200 text-white flex items-center justify-center text-2xl font-extrabold">
             2
