@@ -7,8 +7,15 @@ export const createUnit = function (data) {
   });
 };
 
-export const getUnit = function(unitId) {
+export const getUnit = function (unitId) {
   return protectedFetcher(`/units/${unitId}`, {
-    method: "GET"
+    method: "GET",
   });
-}
+};
+
+export const updateUnit = function (unitId, data) {
+  return protectedFetcher(`/units/${unitId}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+};
