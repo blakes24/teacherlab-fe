@@ -18,29 +18,32 @@ export default function UnitFormDates({ handleUpdate }) {
     <>
       <Input
         label="start date"
+        inputClass="w-56"
         type="date"
         value={startDate}
         onChange={(event) => dispatch(setStartDate(event.target.value))}
       />
       <Input
         label="end date"
+        inputClass="w-56"
         type="date"
         value={endDate}
         onChange={(event) => dispatch(setEndDate(event.target.value))}
       />
       <Input
         label="review date"
+        inputClass="w-56"
         type="date"
         value={reviewDate}
         onChange={(event) => dispatch(setReviewDate(event.target.value))}
       />
-      <Button
+      {/* <Button
         text="Save"
         size="sm"
         classNames="px-6 self-end"
         rounded
         onClick={handleUpdate}
-      />
+      /> */}
     </>
   );
 }

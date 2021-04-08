@@ -1,6 +1,7 @@
 import UnitFormNav from "../../components/unit/unit-form-nav";
 import UnitFormSection from "../../components/unit/unit-form-section";
 import UnitFormDates from "../../components/unit/unit-form-dates";
+import UnitFormObjectives from "../../components/unit/unit-form-objectives";
 import { useSelector, useDispatch } from "react-redux";
 import { setUnit, updateUnitThunk } from "../../store/unit-slicer";
 import { getUnit } from "../../services/unit";
@@ -39,13 +40,14 @@ export default function UnitForm() {
         {unit && <UnitFormNav unit={unit}></UnitFormNav>}
       </div>
       <div className="col-span-7 col-start-5 mt-14">
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-6">
           <UnitFormSection>
             <UnitFormDates handleUpdate={() => handleUnitUpdate(unit.id)} />
           </UnitFormSection>
-          <div className="h-16 bg-gray-200 text-white flex items-center justify-center text-2xl font-extrabold">
-            2
-          </div>
+
+          <UnitFormSection tabText="Objectives">
+            <UnitFormObjectives />
+          </UnitFormSection>
           <div className="h-16 bg-gray-200 text-white flex items-center justify-center text-2xl font-extrabold">
             3
           </div>

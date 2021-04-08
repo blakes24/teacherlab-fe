@@ -38,7 +38,8 @@ export const unitSlice = createSlice({
   name: "unit",
   initialState: {
     completed: false,
-    details: null,
+    subjectName: "",
+    details: {},
     id: null,
     number: null,
     reviewDate: "",
@@ -63,15 +64,20 @@ export const unitSlice = createSlice({
       state.reviewDate = action.payload;
     },
 
+    setObjectives: (state, action) => {
+      state.details.objectives = action.payload
+    },
+
     setUnit: (state, action) => {
       state.startDate = action.payload.startDate;
       state.endDate = action.payload.endDate;
       state.reviewDate = action.payload.reviewDate;
       state.number = action.payload.number;
+      state.subjectName = action.payload.subjectName;
       state.title = action.payload.title;
       state.id = action.payload.id;
       state.completed = action.payload.completed;
-      state.details = action.payload.details;
+      state.details = action.payload.details || {};
     },
   },
   extraReducers: {
@@ -106,6 +112,7 @@ export const {
   setStartDate,
   setEndDate,
   setReviewDate,
+  setObjectives,
   setUnit,
 } = unitSlice.actions;
 

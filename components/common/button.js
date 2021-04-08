@@ -14,7 +14,7 @@ export default function Button({
   size,
   full,
   type,
-  rounded
+  rounded,
 }) {
   const isSmall = size === SIZES.sm;
   const isMedium = size === SIZES.md;
@@ -26,7 +26,7 @@ export default function Button({
     "p-2": isMedium,
     "p-3": isLarge,
     "w-full": full,
-    "rounded": rounded
+    rounded: rounded,
   });
 
   return (
