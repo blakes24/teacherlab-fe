@@ -8,9 +8,10 @@ import { setStandards } from "../../store/unit-slicer";
 const CODE_DESCRIPTION_DELIMITER = " - ";
 
 const MultiValue = (props) => {
-  // set the value of rendered input value to the code
-  // of the standard.
-  // `props.data.value` comes from options when selected
+  // I'm replacing react-selects `MultiValue` component to render
+  // only a standard code in the input when an option is selected
+  // from the dropdown
+  // https://react-select.com/components#replaceable-components
   return <components.MultiValue {...props} children={props.data.value} />;
 };
 
