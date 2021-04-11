@@ -50,6 +50,7 @@ export const unitSlice = createSlice({
     loading: "idle",
     error: null,
     currentRequestId: undefined,
+    setId: null,
   },
   reducers: {
     setStartDate: (state, action) => {
@@ -65,7 +66,13 @@ export const unitSlice = createSlice({
     },
 
     setObjectives: (state, action) => {
-      state.details.objectives = action.payload
+      state.details.objectives = action.payload;
+    },
+
+    setStandards: (state, action) => {
+      state.details.standards = state.details.standards
+        ? state.details.standards.concat(...action.payload)
+        : action.payload;
     },
 
     setUnit: (state, action) => {
@@ -78,6 +85,7 @@ export const unitSlice = createSlice({
       state.id = action.payload.id;
       state.completed = action.payload.completed;
       state.details = action.payload.details || {};
+      state.setId = action.payload.setId;
     },
   },
   extraReducers: {
@@ -92,7 +100,6 @@ export const unitSlice = createSlice({
       const { requestId } = action.meta;
       if (state.loading === "pending" && state.currentRequestId === requestId) {
         state.loading = "idle";
-        console.log(action.payload);
         state.currentRequestId = undefined;
       }
     },
@@ -113,6 +120,7 @@ export const {
   setEndDate,
   setReviewDate,
   setObjectives,
+  setStandards,
   setUnit,
 } = unitSlice.actions;
 
