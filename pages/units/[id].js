@@ -51,7 +51,7 @@ export default function UnitForm() {
           </UnitFormSection>
 
           <UnitFormSection tabText="Standards">
-            <UnitFormStandards></UnitFormStandards>
+            <UnitFormStandards setId={unit.setId}></UnitFormStandards>
           </UnitFormSection>
 
           <div className="h-16 bg-gray-200 text-white flex items-center justify-center text-2xl font-extrabold">

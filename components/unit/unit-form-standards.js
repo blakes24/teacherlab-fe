@@ -2,49 +2,76 @@ import Modal from "react-modal";
 import Button from "../common/button";
 import Input from "../common/input";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-// import { setObjectives } from "../../store/unit-slicer";
+import { useState, useEffect } from "react";
+import { getStandardsBySetId } from "../../services/standard";
+import Select, { components } from "react-select";
+import { setStandards } from "../../store/unit-slicer";
 
-Modal.setAppElement("#__next");
+const CODE_DESCRIPTION_DELIMITER = " - ";
 
-export default function UnitFormStandards() {
+const MultiValue = (props) => {
+  // set the value of rendered input value to the code
+  // of the standard.
+  // `props.data.value` comes from options when selected
+  return <components.MultiValue {...props} children={props.data.value} />;
+};
+
+export default function UnitFormStandards({ setId }) {
   const dispatch = useDispatch();
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [standardsPayload, setStandardsPayload] = useState([]);
+  const [selectedStandards, setSelectedStandards] = useState([]);
+  const standards = useSelector((state) => state.unit.details.standards);
 
-  function openModal() {
-    setIsOpen(true);
+  function handleSelectedStandards() {
+    // react-select expects a {value, label} data structure, here
+    // we format back to original shape to keep consistent with
+    // API response
+    dispatch(
+      setStandards(
+        selectedStandards.map((standard) => ({
+          code: standard.value,
+          description: standard.label.split(CODE_DESCRIPTION_DELIMITER)[1],
+        }))
+      )
+    );
+    setSelectedStandards([]);
   }
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+  useEffect(() => {
+    if (!setId) return;
+
+    getStandardsBySetId(setId).then((payload) => {
+      setStandardsPayload(payload);
+    });
+  }, [setId]);
 
   return (
     <>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Example Modal"
-        shouldCloseOnOverlayClick={true}
-        style={{
-          overlay: {
-            zIndex: 100,
-            // backgroundColor: "rgb(158 158 158 / 75%)",
-            top: "60px",
-          },
-          content: {
-            inset: "50px",
-            background: "rgba(228, 228, 231)",
-          },
-        }}
-      >
-        <Input type="text" />
-      </Modal>
-
       <div className="w-full">
-        <div className="bg-white mb-4 p-6 h-60">No standards selected.</div>
+        <Select
+          instanceId="standards-select"
+          components={{ MultiValue }}
+          options={standardsPayload.map((standard) => ({
+            value: standard.code,
+            label: `${standard.code}${CODE_DESCRIPTION_DELIMITER}${standard.description}`,
+          }))}
+          closeMenuOnSelect={false}
+          onChange={(value) => setSelectedStandards(value)}
+          value={selectedStandards}
+          isMulti
+        />
+        <div className="bg-white mb-4 p-6 h-60">
+          {standards &&
+            standards.map((standard, index) => (
+              <div key={index}>{standard.code}</div>
+            ))}
+        </div>
         <div className="flex justify-end">
-          <Button text="Add Standards" size="md" onClick={openModal} />
+          <Button
+            text="Add Standards"
+            size="md"
+            onClick={handleSelectedStandards}
+          />
         </div>
       </div>
     </>
