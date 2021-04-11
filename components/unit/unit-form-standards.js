@@ -1,6 +1,4 @@
-import Modal from "react-modal";
 import Button from "../common/button";
-import Input from "../common/input";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { getStandardsBySetId } from "../../services/standard";
