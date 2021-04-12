@@ -9,6 +9,7 @@ import {
   updateAssessment,
   removeAssessment,
 } from "../../store/unit-slicer";
+import PropTypes from "prop-types";
 
 export default function UnitFormAssessment({ assessmentType }) {
   const dispatch = useDispatch();
@@ -116,3 +117,7 @@ export default function UnitFormAssessment({ assessmentType }) {
     </div>
   );
 }
+
+UnitFormAssessment.propTypes = {
+  assessmentType: PropTypes.oneOf(["summative", "formative"]).isRequired,
+};
