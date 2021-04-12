@@ -2,11 +2,16 @@
 import "tailwindcss/tailwind.css";
 import UserContext from "../components/context/user-context";
 import Layout from "../components/layout";
-import storage from "../libs/storage";
 import store from "../store/index";
 import { isAuthenticated, getLoggedInUser } from "../services/auth";
 import { Provider } from "react-redux";
 import { useState, useEffect } from "react";
+
+// need to add this so fontawesome icons render correctly when SSR
+// https://github.com/FortAwesome/react-fontawesome/issues/134
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState({});
