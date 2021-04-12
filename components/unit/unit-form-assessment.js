@@ -77,40 +77,42 @@ export default function UnitFormAssessment({ assessmentType }) {
         </div>
       </div>
 
-      <table className="table-fixed w-full mt-3 text-sm">
-        <tbody>
-          {assessments &&
-            assessments.map((assessment, index) => (
-              <tr
-                className={assessment.completed ? "bg-yellow" : ""}
-                key={index}
-              >
-                <td className="border border-black px-4 py-2 w-12">
-                  <Input
-                    type="checkbox"
-                    onChange={(event) =>
-                      toggleAssessment(event.target.checked, index)
-                    }
-                    checked={assessment.completed}
-                  />
-                </td>
-                <td className="border border-black px-4 py-2 w-3/5">
-                  {assessment.name}
-                </td>
-                <td className="border border-black px-4 py-2 w-2/12 text-center">
-                  {assessment.date}
-                </td>
-                <td className="border border-black px-4 py-2 w-1/12 text-center">
-                  <FontAwesomeIcon
-                    icon={faTrashAlt}
-                    size="lg"
-                    onClick={() => handleRemoveAssessment(index)}
-                  />
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <div className="h-64 overflow-auto">
+        <table className="table-fixed w-full mt-3 text-sm">
+          <tbody>
+            {assessments &&
+              assessments.map((assessment, index) => (
+                <tr
+                  className={assessment.completed ? "bg-yellow" : ""}
+                  key={index}
+                >
+                  <td className="border border-black px-4 py-2 w-12">
+                    <Input
+                      type="checkbox"
+                      onChange={(event) =>
+                        toggleAssessment(event.target.checked, index)
+                      }
+                      checked={assessment.completed}
+                    />
+                  </td>
+                  <td className="border border-black px-4 py-2 w-3/5">
+                    {assessment.name}
+                  </td>
+                  <td className="border border-black px-4 py-2 w-2/12 text-center">
+                    {assessment.date}
+                  </td>
+                  <td className="border border-black px-4 py-2 w-1/12 text-center">
+                    <FontAwesomeIcon
+                      icon={faTrashAlt}
+                      size="lg"
+                      onClick={() => handleRemoveAssessment(index)}
+                    />
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
