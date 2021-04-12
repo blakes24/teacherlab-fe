@@ -39,7 +39,14 @@ export const unitSlice = createSlice({
   initialState: {
     completed: false,
     subjectName: "",
-    details: {},
+    details: {
+      standards: [],
+      objectives: "",
+      assessments: {
+        formative: [],
+        summative: [],
+      },
+    },
     id: null,
     number: null,
     reviewDate: "",
@@ -70,22 +77,46 @@ export const unitSlice = createSlice({
     },
 
     setStandards: (state, action) => {
-      state.details.standards = state.details.standards
-        ? state.details.standards.concat(...action.payload)
-        : action.payload;
+      state.details.standards.push(...action.payload);
+    },
+
+    addAssessment: (state, action) => {
+      state.details.assessments[action.payload.assessmentType].push(
+        action.payload.assessment
+      );
+    },
+
+    updateAssessment: (state, action) => {
+      state.details.assessments[action.payload.assessmentType][
+        action.payload.index
+      ][action.payload.field] = action.payload.value;
+    },
+
+    removeAssessment: (state, action) => {
+      state.details.assessments[action.payload.assessmentType].splice(
+        action.payload.index,
+        1
+      );
     },
 
     setUnit: (state, action) => {
-      state.startDate = action.payload.startDate;
-      state.endDate = action.payload.endDate;
-      state.reviewDate = action.payload.reviewDate;
-      state.number = action.payload.number;
-      state.subjectName = action.payload.subjectName;
-      state.title = action.payload.title;
-      state.id = action.payload.id;
-      state.completed = action.payload.completed;
-      state.details = action.payload.details || {};
-      state.setId = action.payload.setId;
+      const unit = action.payload;
+
+      state.startDate = unit.startDate;
+      state.endDate = unit.endDate;
+      state.reviewDate = unit.reviewDate;
+      state.number = unit.number;
+      state.subjectName = unit.subjectName;
+      state.title = unit.title;
+      state.id = unit.id;
+      state.completed = unit.completed;
+      state.details.objectives = unit.details.objectives || "";
+      state.details.standards = unit.details.standards || [];
+      state.details.assessments.formative =
+        unit.details.assessments?.formative || [];
+      state.details.assessments.summative =
+        unit.details.assessments?.summative || [];
+      state.setId = unit.setId;
     },
   },
   extraReducers: {
@@ -121,6 +152,9 @@ export const {
   setReviewDate,
   setObjectives,
   setStandards,
+  addAssessment,
+  updateAssessment,
+  removeAssessment,
   setUnit,
 } = unitSlice.actions;
 
