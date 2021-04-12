@@ -10,7 +10,7 @@ export default function UnitCard({ unit, subjectName }) {
 
   return (
     <div className="flex flex-col">
-      <div className="rounded-full bg-yellow-500 w-24 h-24 text-4xl font-light flex justify-center self-center">
+      <div className="rounded-full bg-yellow w-24 h-24 text-4xl font-light flex justify-center self-center">
         <div className="self-center">U{unit.number}</div>
       </div>
       <div className="self-center font-semibold text-white text-lg mt-4">
