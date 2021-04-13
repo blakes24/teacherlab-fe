@@ -3,6 +3,7 @@ import UnitFormSection from "../../components/unit/unit-form-section";
 import UnitFormDates from "../../components/unit/unit-form-dates";
 import UnitFormObjectives from "../../components/unit/unit-form-objectives";
 import UnitFormStandards from "../../components/unit/unit-form-standards";
+import UnitFormAssessment from "../../components/unit/unit-form-assessment";
 import { useSelector, useDispatch } from "react-redux";
 import { setUnit, updateUnitThunk } from "../../store/unit-slicer";
 import { getUnit } from "../../services/unit";
@@ -52,6 +53,14 @@ export default function UnitForm() {
 
           <UnitFormSection tabText="Standards">
             <UnitFormStandards setId={unit.setId}></UnitFormStandards>
+          </UnitFormSection>
+
+          <UnitFormSection tabText="Formative Assessment">
+            <UnitFormAssessment assessmentType="formative" />
+          </UnitFormSection>
+
+          <UnitFormSection tabText="Summative Assessment">
+            <UnitFormAssessment assessmentType="summative" />
           </UnitFormSection>
 
           <div className="h-16 bg-gray-200 text-white flex items-center justify-center text-2xl font-extrabold">

@@ -19,7 +19,7 @@ export default function UnitFormNav({ unit }) {
       <div className="mt-14 sticky" style={{ top: "117px" }}>
         <div className="bg-blue p-7 pt-4">
           <div className="flex flex-col justify-between items-center text-white">
-            <div className="rounded-full bg-yellow-500 w-24 h-24 text-4xl font-light flex justify-center self-center">
+            <div className="rounded-full bg-yellow w-24 h-24 text-4xl font-light flex justify-center self-center">
               <div className="self-center text-black">U{unit.number}</div>
             </div>
             <div className="font-semibold text-lg mt-4">{unit.subjectName}</div>

@@ -13,11 +13,13 @@ module.exports = {
       ...colors,
       blue: "#264653",
       green: "#2A9D8F",
+      yellow: "#E9C46A",
     },
   },
   variants: {
     extend: {
-      backgroundColor: ["active"],
+      backgroundColor: ["active", "checked"],
+      borderColor: ["checked"],
     },
   },
   plugins: [

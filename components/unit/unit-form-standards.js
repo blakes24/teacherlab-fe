@@ -59,7 +59,7 @@ export default function UnitFormStandards({ setId }) {
           value={selectedStandards}
           isMulti
         />
-        <div className="bg-white mb-4 p-6 h-60">
+        <div className="bg-white mb-4 p-6 h-60 overflow-scroll">
           {standards &&
             standards.map((standard, index) => (
               <div key={index}>{standard.code}</div>

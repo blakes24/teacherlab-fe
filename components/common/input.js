@@ -6,6 +6,7 @@ const TYPES = {
   text: "text",
   number: "number",
   date: "date",
+  checkBox: "checkbox",
 };
 
 export default function Input({
@@ -20,6 +21,7 @@ export default function Input({
   gray,
   full,
   placeholder,
+  checked,
 }) {
   const inputClasses = cx(
     "mt-1 block rounded-md border-transparent focus:ring-0",
@@ -49,6 +51,7 @@ export default function Input({
             onChange={onChange}
             required={required}
             readOnly={readonly}
+            placeholder={placeholder}
           />
         )}
         {type === TYPES.number && (
@@ -76,6 +79,17 @@ export default function Input({
             placeholder={placeholder}
           />
         )}
+        {type === TYPES.checkBox && (
+          <input
+            id={inputId}
+            className={inputClasses}
+            className="appearance-none checked:border-transparent focus:ring-0 focus:ring-offset-0 border-transparent focus:ring-white border-none bg-gray-200 text-gray-700"
+            type="checkbox"
+            onChange={onChange}
+            required={required}
+            checked={checked}
+          />
+        )}
       </label>
     </>
   );
@@ -92,4 +106,5 @@ Input.propTypes = {
   inputClass: PropTypes.string,
   full: PropTypes.bool,
   gray: PropTypes.bool,
+  checked: PropTypes.bool,
 };
