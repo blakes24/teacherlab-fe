@@ -107,7 +107,7 @@ export default function UnitFormStandards({ setId }) {
   return (
     <>
       <div className="bg-white w-full p-2 pb-3 border border-black">
-        <div className="flex space-x-8 items-center justify-between">
+        <div className="flex space-x-8 items-center justify-between pb-3 border-b border-black">
           <Select
             styles={selectStyles}
             instanceId="standards-select"
@@ -135,7 +135,7 @@ export default function UnitFormStandards({ setId }) {
 
         {standards ? (
           <div className="overflow-auto" style={{ maxHeight: "24rem" }}>
-            <table className="table-auto w-full mt-3 text-sm">
+            <table className="table-auto w-full text-sm">
               <tbody>
                 {standards.map((standard, index) => (
                   <tr
@@ -144,16 +144,16 @@ export default function UnitFormStandards({ setId }) {
                       backgroundColor: index % 2 === 0 && lightGrey,
                     }}
                   >
-                    <td className="border border-black text-center p-1">
+                    <td className="border border-black border-t-0 text-center p-1">
                       {index + 1}
                     </td>
-                    <td className="border border-black px-4 py-2 w-1/5 text-center font-semibold">
+                    <td className="border border-black border-t-0 px-4 py-2 w-1/5 text-center font-semibold">
                       {standard.code}
                     </td>
-                    <td className="border border-black px-4 py-2">
+                    <td className="border border-black border-t-0 px-4 py-2">
                       {standard.description}
                     </td>
-                    <td className="border border-black px-4 py-2 w-1/12 text-center">
+                    <td className="border border-black border-t-0 px-4 py-2 w-1/12 text-center">
                       <FontAwesomeIcon
                         icon={faTrashAlt}
                         size="lg"
