@@ -19,6 +19,18 @@ const MultiValue = (props) => {
   return <components.MultiValue {...props} children={props.data.value} />;
 };
 
+const Option = (props) => {
+  const [code, description] = props.data.label.split(
+    CODE_DESCRIPTION_DELIMITER
+  );
+
+  return (
+    <components.Option {...props}>
+      <span className="font-semibold">{code}</span> - {description}
+    </components.Option>
+  );
+};
+
 const selectStyles = {
   control: (styles) => ({
     ...styles,
@@ -99,7 +111,7 @@ export default function UnitFormStandards({ setId }) {
             styles={selectStyles}
             instanceId="standards-select"
             className="flex-grow"
-            components={{ MultiValue }}
+            components={{ MultiValue, Option }}
             options={standardsPayload.map((standard, index) => ({
               index,
               value: standard.code,
@@ -121,7 +133,7 @@ export default function UnitFormStandards({ setId }) {
         </div>
 
         {standards ? (
-          <div className="overflow-auto" style={{ maxHeight: "24rem"}}>
+          <div className="overflow-auto" style={{ maxHeight: "24rem" }}>
             <table className="table-auto w-full mt-3 text-sm">
               <tbody>
                 {standards.map((standard, index) => (
@@ -131,7 +143,9 @@ export default function UnitFormStandards({ setId }) {
                       backgroundColor: index % 2 === 0 && lightGrey,
                     }}
                   >
-                    <td className="border border-black text-center p-1">{index + 1}</td>
+                    <td className="border border-black text-center p-1">
+                      {index + 1}
+                    </td>
                     <td className="border border-black px-4 py-2 w-1/5 text-center font-semibold">
                       {standard.code}
                     </td>
