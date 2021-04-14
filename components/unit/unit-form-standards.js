@@ -26,7 +26,8 @@ const Option = (props) => {
 
   return (
     <components.Option {...props}>
-      <span className="font-semibold">{code}</span> - {description}
+      <span className="font-semibold">{code}</span>
+      {`${CODE_DESCRIPTION_DELIMITER}${description}`}
     </components.Option>
   );
 };
