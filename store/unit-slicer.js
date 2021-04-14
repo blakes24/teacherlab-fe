@@ -77,7 +77,7 @@ export const unitSlice = createSlice({
     },
 
     setStandards: (state, action) => {
-      state.details.standards.push(...action.payload);
+      state.details.standards.shift(...action.payload);
     },
 
     removeStandard: (state, action) => {
