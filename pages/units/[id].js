@@ -37,13 +37,14 @@ export default function UnitForm() {
   };
 
   return (
-    <div className="grid grid-cols-12">
-      <div className="col-span-4 w-3/5 mx-auto relative">
+    <div className="container mx-auto xl:px-24 lg:px-0 sm:px-0 py-14">
+      {/* temporarily removing this until we decide on nav */}
+      {/* <div className="col-span-4 w-3/5 mx-auto relative">
         {unit && <UnitFormNav unit={unit}></UnitFormNav>}
-      </div>
-      <div className="col-span-7 col-start-5 mt-14">
+      </div> */}
+      {/* <div className="col-span-12 mt-14"> */}
         <div className="flex flex-col space-y-6">
-          <UnitFormSection>
+          <UnitFormSection showSaveButton={false}>
             <UnitFormDates handleUpdate={() => handleUnitUpdate(unit.id)} />
           </UnitFormSection>
 
@@ -62,11 +63,7 @@ export default function UnitForm() {
           <UnitFormSection tabText="Summative Assessment">
             <UnitFormAssessment assessmentType="summative" />
           </UnitFormSection>
-
-          <div className="h-16 bg-gray-200 text-white flex items-center justify-center text-2xl font-extrabold">
-            1
-          </div>
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );

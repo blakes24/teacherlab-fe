@@ -15,36 +15,39 @@ export default function UnitFormDates({ handleUpdate }) {
   const reviewDate = useSelector((state) => state.unit.reviewDate);
 
   return (
-    <>
+    <div className="flex justify-between w-full md:space-x-12 md:flex-row sm:flex-col">
       <Input
         label="start date"
-        inputClass="w-56"
+        inputClass="w-full"
+        labelClass="flex-grow"
         type="date"
         value={startDate}
         onChange={(event) => dispatch(setStartDate(event.target.value))}
       />
       <Input
         label="end date"
-        inputClass="w-56"
+        inputClass="w-full"
+        labelClass="flex-grow"
         type="date"
         value={endDate}
         onChange={(event) => dispatch(setEndDate(event.target.value))}
       />
       <Input
         label="review date"
-        inputClass="w-56"
+        inputClass="w-full"
+        labelClass="flex-grow"
         type="date"
         value={reviewDate}
         onChange={(event) => dispatch(setReviewDate(event.target.value))}
       />
-      {/* <Button
+      <Button
         text="Save"
-        size="sm"
-        classNames="px-6 self-end"
+        size="md"
+        classNames="px-14 self-end"
         rounded
         onClick={handleUpdate}
-      /> */}
-    </>
+      />
+    </div>
   );
 }
 

@@ -1,4 +1,5 @@
-const colors = require("tailwindcss/colors");
+const tailwindColors = require("tailwindcss/colors");
+const COLORS = require("./libs/theme.js");
 
 module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx}", "./components/**/*.{js,ts,jsx}"],
@@ -10,10 +11,8 @@ module.exports = {
       }),
     },
     colors: {
-      ...colors,
-      blue: "#264653",
-      green: "#2A9D8F",
-      yellow: "#E9C46A",
+      ...tailwindColors,
+      ...COLORS,
     },
   },
   variants: {
