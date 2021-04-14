@@ -77,7 +77,11 @@ export const unitSlice = createSlice({
     },
 
     setStandards: (state, action) => {
-      state.details.standards.push(...action.payload);
+      state.details.standards.unshift(...action.payload);
+    },
+
+    removeStandard: (state, action) => {
+      state.details.standards.splice(action.payload.index, 1);
     },
 
     addAssessment: (state, action) => {
@@ -152,6 +156,7 @@ export const {
   setReviewDate,
   setObjectives,
   setStandards,
+  removeStandard,
   addAssessment,
   updateAssessment,
   removeAssessment,
