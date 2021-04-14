@@ -86,6 +86,7 @@ export default function UnitFormStandards({ setId }) {
   }, [setId]);
 
   function handleSelectedStandards() {
+    if (selectedStandards.length === 0) return;
     // react-select expects a {value, label} data structure, here
     // we format back to original shape to keep consistent with
     // API response
