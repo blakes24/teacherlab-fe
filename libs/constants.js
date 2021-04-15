@@ -15,3 +15,18 @@ export const UNIT_FORM_DATA_SYMBOLS = {
   reviewDate: "reviewDate",
   subjectId: "subjectId",
 };
+
+export const ASSESSMENT_VALUES = {
+  levelOne: {
+    field: "beginningStep",
+    value: "Beginning Step"
+  },
+  levelTwo: {
+    field: "nearing",
+    value: "Nearing",
+  },
+  levelThree: {
+    field: "proficient",
+    value: "Proficient",
+  }
+};

@@ -1,14 +1,12 @@
 import Input from "../common/input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
+import AssessmentTableRow from "./assessment-table-row";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addAssessment,
-  updateAssessment,
-  removeAssessment,
-} from "../../store/unit-slicer";
+import { addAssessment } from "../../store/unit-slicer";
+import ReactTooltip from "react-tooltip";
+import { ASSESSMENT_VALUES } from "../../libs/constants";
 import PropTypes from "prop-types";
 
 export default function UnitFormAssessment({ assessmentType }) {
@@ -18,6 +16,16 @@ export default function UnitFormAssessment({ assessmentType }) {
   );
   const [assessmentName, setAssessmentName] = useState();
   const [assessmentDate, setAssessmentDate] = useState();
+  const [renderToolTip, setRenderToolTip] = useState(false);
+  const {
+    levelOne: { field: beginningStepField, value: beginningStepValue },
+    levelTwo: { field: nearingField, value: nearingValue },
+    levelThree: { field: proficientField, value: proficientValue },
+  } = ASSESSMENT_VALUES;
+
+  useEffect(() => {
+    setRenderToolTip(true);
+  }, []);
 
   function handleAddAssessment() {
     if (assessmentName && assessmentDate) {
@@ -32,26 +40,6 @@ export default function UnitFormAssessment({ assessmentType }) {
         })
       );
     }
-  }
-
-  function handleRemoveAssessment(index) {
-    dispatch(
-      removeAssessment({
-        index,
-        assessmentType,
-      })
-    );
-  }
-
-  function toggleAssessment(checked, index) {
-    dispatch(
-      updateAssessment({
-        value: checked,
-        index,
-        field: "completed",
-        assessmentType,
-      })
-    );
   }
 
   return (
@@ -79,37 +67,70 @@ export default function UnitFormAssessment({ assessmentType }) {
       </div>
 
       <div className="h-64 overflow-auto">
-        <table className="table-fixed w-full mt-3 text-sm">
+        {renderToolTip && (
+          <>
+            <ReactTooltip id={beginningStepField} />
+            <ReactTooltip id={nearingField} />
+            <ReactTooltip id={proficientField} />
+          </>
+        )}
+        <table
+          className="table-fixed w-full mt-3 text-sm"
+          style={{ width: "99.9%" }}
+        >
+          <thead className="pb-2">
+            <tr className="h-10">
+              <td className="w-12"></td>
+              <td className="w-3/5"></td>
+              <td
+                className="text-center font-semibold cursor-pointer"
+                style={{ width: "7%" }}
+              >
+                <div
+                  data-tip={beginningStepValue}
+                  data-for={beginningStepField}
+                  className="rounded-full border-2 border-black w-6 mx-auto"
+                >
+                  1
+                </div>
+              </td>
+              <td
+                className="text-center font-semibold cursor-pointer"
+                style={{ width: "7%" }}
+              >
+                <div
+                  data-tip={nearingValue}
+                  data-for={nearingField}
+                  className="rounded-full border-2 border-black w-6 mx-auto"
+                >
+                  2
+                </div>
+              </td>
+              <td
+                className="text-center font-semibold cursor-pointer"
+                style={{ width: "7%" }}
+              >
+                <div
+                  data-tip={proficientValue}
+                  data-for={proficientField}
+                  className="rounded-full border-2 border-black w-6 mx-auto"
+                >
+                  3
+                </div>
+              </td>
+              <td style={{ width: "123px" }}></td>
+              <td className="w-1/12 "></td>
+            </tr>
+          </thead>
           <tbody>
             {assessments &&
               assessments.map((assessment, index) => (
-                <tr
-                  className={assessment.completed ? "bg-yellow" : ""}
+                <AssessmentTableRow
                   key={index}
-                >
-                  <td className="border border-black px-4 py-2 w-12">
-                    <Input
-                      type="checkbox"
-                      onChange={(event) =>
-                        toggleAssessment(event.target.checked, index)
-                      }
-                      checked={assessment.completed}
-                    />
-                  </td>
-                  <td className="border border-black px-4 py-2 w-3/5">
-                    {assessment.name}
-                  </td>
-                  <td className="border border-black px-4 py-2 w-2/12 text-center">
-                    {assessment.date}
-                  </td>
-                  <td className="border border-black px-4 py-2 w-1/12 text-center">
-                    <FontAwesomeIcon
-                      icon={faTrashAlt}
-                      size="lg"
-                      onClick={() => handleRemoveAssessment(index)}
-                    />
-                  </td>
-                </tr>
+                  assessment={assessment}
+                  index={index}
+                  assessmentType={assessmentType}
+                />
               ))}
           </tbody>
         </table>
