@@ -1,7 +1,7 @@
-// import '../styles/globals.css'
+import "../styles/sidebar.scss";
 import "tailwindcss/tailwind.css";
 import UserContext from "../components/context/user-context";
-import Layout from "../components/layout";
+import Wrapper from "../components/layout/wrapper";
 import store from "../store/index";
 import { isAuthenticated, getLoggedInUser } from "../services/auth";
 import { Provider } from "react-redux";
@@ -25,9 +25,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <UserContext.Provider value={{ user, setUser }}>
-        <Layout>
+        <Wrapper>
           <Component {...pageProps} />
-        </Layout>
+        </Wrapper>
       </UserContext.Provider>
     </Provider>
   );

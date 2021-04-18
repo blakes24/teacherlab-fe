@@ -1,0 +1,10 @@
+$blue: #264653;
+$dark-blue: rgb(29 57 69);
+
+$sidebar-bg-color: $blue !default;
+$sidebar-color: #ffffff !default;
+$icon-bg-color: $dark-blue !default;
+$submenu-bg-color: $dark-blue !default;
+$submenu-bg-color-collapsed: $dark-blue !default;
+
+@import '~react-pro-sidebar/dist/scss/styles.scss';

@@ -114,12 +114,12 @@ export const unitSlice = createSlice({
       state.title = unit.title;
       state.id = unit.id;
       state.completed = unit.completed;
-      state.details.objectives = unit.details.objectives || "";
-      state.details.standards = unit.details.standards || [];
+      state.details.objectives = unit.details?.objectives || "";
+      state.details.standards = unit.details?.standards || [];
       state.details.assessments.formative =
-        unit.details.assessments?.formative || [];
+        unit.details?.assessments?.formative || [];
       state.details.assessments.summative =
-        unit.details.assessments?.summative || [];
+        unit.details?.assessments?.summative || [];
       state.setId = unit.setId;
     },
   },
