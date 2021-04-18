@@ -116,10 +116,10 @@ export default function AssessmentTableRow({
                 index,
               })
             }
-            value={assessment.proficiency}
+            value={assessment.proficient}
           />
         ) : (
-          appendPercentage(assessment.proficiency)
+          appendPercentage(assessment.proficient)
         )}
       </td>
       <td className="border border-black px-4 py-2 text-center">

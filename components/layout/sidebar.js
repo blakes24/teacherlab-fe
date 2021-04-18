@@ -1,3 +1,5 @@
+import { logout } from "../../services/auth";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   ProSidebar,
@@ -5,6 +7,8 @@ import {
   MenuItem,
   SubMenu,
   SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
 } from "react-pro-sidebar";
 import { faGem, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faChevronLeft, faBars } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +16,7 @@ import { useState } from "react";
 import cx from "classnames";
 
 export default function SideBar() {
+  const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const titleClasses = cx(
     "uppercase text-yellow text-x transition duration-200 ease-in-out self-center",
@@ -19,6 +24,14 @@ export default function SideBar() {
       "transform-gpu -translate-x-44 absolute -left-16": isCollapsed,
     }
   );
+  const footerClasses = cx("p-3 text-center uppercase", {
+    "transform-gpu -translate-x-44 absolute -left-16": isCollapsed,
+  });
+
+  function handleLogout() {
+    logout();
+    router.push("/login");
+  }
 
   return (
     <ProSidebar
@@ -48,24 +61,35 @@ export default function SideBar() {
           )}
         </div>
       </SidebarHeader>
-      <Menu
-        iconShape="circle"
-        className="border-t-2 border-white bg-blue"
-        popperArrow
-      >
-        <MenuItem
-          icon={<FontAwesomeIcon icon={faGem} className="cursor-pointer" />}
+      <SidebarContent>
+        <Menu
+          iconShape="circle"
+          className="border-t-2 border-white bg-blue"
+          popperArrow
         >
-          Dashboard
-        </MenuItem>
-        <SubMenu
-          title="Components"
-          icon={<FontAwesomeIcon icon={faHeart} className="cursor-pointer" />}
+          <MenuItem
+            icon={<FontAwesomeIcon icon={faGem} className="cursor-pointer" />}
+          >
+            Dashboard
+          </MenuItem>
+          <SubMenu
+            title="Components"
+            icon={<FontAwesomeIcon icon={faHeart} className="cursor-pointer" />}
+          >
+            <MenuItem>Component 1</MenuItem>
+            <MenuItem>Component 2</MenuItem>
+          </SubMenu>
+        </Menu>
+      </SidebarContent>
+      <SidebarFooter>
+        <div
+          className={footerClasses}
+          role="button"
+          onClick={() => handleLogout()}
         >
-          <MenuItem>Component 1</MenuItem>
-          <MenuItem>Component 2</MenuItem>
-        </SubMenu>
-      </Menu>
+          Logout
+        </div>
+      </SidebarFooter>
     </ProSidebar>
   );
 }

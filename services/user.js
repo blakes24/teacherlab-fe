@@ -1,4 +1,4 @@
-import { getLoggedInUser, isAuthenticated } from "./auth";
+import { getLoggedInUser } from "./auth";
 import { protectedFetcher } from "./utils";
 
 export const getSubjects = function () {

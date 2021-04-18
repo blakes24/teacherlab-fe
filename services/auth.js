@@ -12,6 +12,11 @@ const login = (credentials) => {
   });
 };
 
+const logout = () => {
+  storage.remove("AUTH_TOKEN");
+  storage.remove("user");
+};
+
 const getLoggedInUser = () => {
   return storage.get("user");
 };
@@ -20,4 +25,4 @@ const isAuthenticated = () => {
   return storage.get("AUTH_TOKEN");
 };
 
-export { login, isAuthenticated, getLoggedInUser };
+export { login, logout, isAuthenticated, getLoggedInUser };

@@ -1,8 +1,19 @@
+import { isAuthenticated } from "../../services/auth";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import SideNav from "./sidebar";
 import Nav from "./nav";
 import Head from "next/head";
 
 export default function Wrapper({ children }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push("/login");
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -12,7 +23,7 @@ export default function Wrapper({ children }) {
 
       <div className="h-screen">
         <div className="flex h-full">
-          <SideNav />
+          {isAuthenticated() && <SideNav />}
           <div className="w-full flex flex-col">
             <div>
               <Nav />
