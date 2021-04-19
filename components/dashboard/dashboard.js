@@ -1,11 +1,12 @@
 import DashboardColumn from "./dashboard-column";
 import PropTypes from "prop-types";
-import { isAuthenticated } from "../../services/auth";
 import { getSubjects } from "../../services/user";
+import { useSelector } from "react-redux";
 import { SUBJECTS } from "../../libs/constants";
 import { useEffect, useState } from "react";
 
 export default function Dashboard({ user }) {
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [subjectsByGrade, setSubjectsByGrade] = useState([]);
   const [selectedGrade] = useState("5");
 
@@ -23,7 +24,7 @@ export default function Dashboard({ user }) {
   }
 
   useEffect(async () => {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated) {
       return;
     }
 
@@ -33,7 +34,7 @@ export default function Dashboard({ user }) {
 
   return (
     <>
-      {isAuthenticated() && (
+      {isAuthenticated && (
         <div className="grid grid-flow-col grid-cols-3 divide-x min-h-screen -mt-16 pt-16">
           <DashboardColumn
             subject={getSubjectData(SUBJECTS.ela)}

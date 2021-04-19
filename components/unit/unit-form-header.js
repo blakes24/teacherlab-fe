@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-export default function UnitFormNav({ unit }) {
+
+export default function UnitFormHeader({ unit }) {
   return (
     <div className="flex space-x-6 items-center">
       <div className="rounded-full bg-yellow w-16 h-16 text-2xl font-light flex justify-center self-center">
@@ -13,6 +14,6 @@ export default function UnitFormNav({ unit }) {
   );
 }
 
-UnitFormNav.propTypes = {
+UnitFormHeader.propTypes = {
   unit: PropTypes.object.isRequired,
 };

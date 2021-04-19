@@ -4,8 +4,11 @@ import Button from "../components/common/button";
 import { login } from "../services/auth";
 import { useRouter } from "next/router";
 import { useState, useContext } from "react";
+import { useDispatch } from "react-redux";
+import { setIsAuthenticated } from "../store/user-slicer";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +32,8 @@ export default function Login() {
         // persist token and user in localStorage
         storage.set("AUTH_TOKEN", token);
         storage.set("user", user);
+
+        dispatch(setIsAuthenticated(true));
 
         router.push("/");
       }

@@ -1,4 +1,6 @@
 import { logout } from "../../services/auth";
+import { setIsAuthenticated } from "../../store/user-slicer";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,6 +18,7 @@ import { useState } from "react";
 import cx from "classnames";
 
 export default function SideBar() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const titleClasses = cx(
@@ -30,6 +33,7 @@ export default function SideBar() {
 
   function handleLogout() {
     logout();
+    dispatch(setIsAuthenticated(false));
     router.push("/login");
   }
 
