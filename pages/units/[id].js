@@ -1,20 +1,27 @@
 import UnitFormHeader from "../../components/unit/unit-form-header";
+import UnitFormNavLink from "../../components/unit/unit-form-nav-link";
 import UnitFormSection from "../../components/unit/unit-form-section";
 import UnitFormDates from "../../components/unit/unit-form-dates";
 import UnitFormObjectives from "../../components/unit/unit-form-objectives";
 import UnitFormStandards from "../../components/unit/unit-form-standards";
 import UnitFormAssessment from "../../components/unit/unit-form-assessment";
 import { useSelector, useDispatch } from "react-redux";
-import { setUnit, updateUnitThunk } from "../../store/unit-slicer";
+import { setUnit } from "../../store/unit-slicer";
 import { getUnit } from "../../services/unit";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const FORM_SECTIONS = {
+  planning: "planning",
+  collaboration: "collaboration",
+};
 
 export default function UnitForm() {
-  const unit = useSelector((state) => state.unit);
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
   const router = useRouter();
+  const unit = useSelector((state) => state.unit);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const [activeSection, setActiveSection] = useState(FORM_SECTIONS.planning);
 
   useEffect(() => {
     if (!router.isReady || !isAuthenticated) return;
@@ -29,14 +36,6 @@ export default function UnitForm() {
     }
   }, [router.isReady]);
 
-  const handleUnitUpdate = async (unitId) => {
-    try {
-      await dispatch(updateUnitThunk(unitId));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <>
       {isAuthenticated && (
@@ -44,25 +43,56 @@ export default function UnitForm() {
           <div className="flex flex-col space-y-6">
             <UnitFormHeader unit={unit} />
 
-            <UnitFormSection showSaveButton={false}>
-              <UnitFormDates handleUpdate={() => handleUnitUpdate(unit.id)} />
-            </UnitFormSection>
+            <ul className="text-2xl font-light divide-x divide-black">
+              <UnitFormNavLink
+                className="pr-3"
+                label={FORM_SECTIONS.planning}
+                setActiveSection={() =>
+                  setActiveSection(FORM_SECTIONS.planning)
+                }
+                active={activeSection === FORM_SECTIONS.planning}
+              />
+              <UnitFormNavLink
+                className="pl-3"
+                label={FORM_SECTIONS.collaboration}
+                setActiveSection={() =>
+                  setActiveSection(FORM_SECTIONS.collaboration)
+                }
+                active={activeSection === FORM_SECTIONS.collaboration}
+              />
+            </ul>
 
-            <UnitFormSection tabText="Objectives">
-              <UnitFormObjectives />
-            </UnitFormSection>
+            {activeSection === FORM_SECTIONS.planning && (
+              <>
+                <UnitFormSection showSaveButton={false}>
+                  <UnitFormDates />
+                </UnitFormSection>
 
-            <UnitFormSection tabText="Standards">
-              <UnitFormStandards setId={unit.setId}></UnitFormStandards>
-            </UnitFormSection>
+                <UnitFormSection tabText="Objectives">
+                  <UnitFormObjectives />
+                </UnitFormSection>
 
-            <UnitFormSection tabText="Formative Assessment">
-              <UnitFormAssessment assessmentType="formative" />
-            </UnitFormSection>
+                <UnitFormSection tabText="Standards">
+                  <UnitFormStandards setId={unit.setId}></UnitFormStandards>
+                </UnitFormSection>
 
-            <UnitFormSection tabText="Summative Assessment">
-              <UnitFormAssessment assessmentType="summative" />
-            </UnitFormSection>
+                <UnitFormSection tabText="Formative Assessment">
+                  <UnitFormAssessment assessmentType="formative" />
+                </UnitFormSection>
+
+                <UnitFormSection tabText="Summative Assessment">
+                  <UnitFormAssessment assessmentType="summative" />
+                </UnitFormSection>
+              </>
+            )}
+
+            {activeSection === FORM_SECTIONS.collaboration && (
+              <>
+                <UnitFormSection showSaveButton={false}>
+                  Chart and questions will go here
+                </UnitFormSection>
+              </>
+            )}
           </div>
         </div>
       )}

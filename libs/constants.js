@@ -19,7 +19,7 @@ export const UNIT_FORM_DATA_SYMBOLS = {
 export const ASSESSMENT_VALUES = {
   levelOne: {
     field: "beginningStep",
-    value: "Beginning Step"
+    value: "Beginning Step",
   },
   levelTwo: {
     field: "nearing",
@@ -28,5 +28,5 @@ export const ASSESSMENT_VALUES = {
   levelThree: {
     field: "proficient",
     value: "Proficient",
-  }
+  },
 };
