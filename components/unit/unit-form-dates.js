@@ -1,11 +1,13 @@
 import Input from "../../components/common/input";
 import Button from "../../components/common/button";
 import { useSelector, useDispatch } from "react-redux";
+import { updateUnitThunk } from "../../store/unit-slicer";
 import {
   setStartDate,
   setEndDate,
   setReviewDate,
 } from "../../store/unit-slicer";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 export default function UnitFormDates({ handleUpdate }) {
@@ -13,6 +15,19 @@ export default function UnitFormDates({ handleUpdate }) {
   const startDate = useSelector((state) => state.unit.startDate);
   const endDate = useSelector((state) => state.unit.endDate);
   const reviewDate = useSelector((state) => state.unit.reviewDate);
+  const unitId = useSelector((state) => state.unit.id);
+  const [loading, setIsLoading] = useState(false);
+
+  const handleUnitUpdate = async () => {
+    setIsLoading(true);
+    try {
+      await dispatch(updateUnitThunk(unitId));
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
+    }
+  };
 
   return (
     <div className="flex justify-between w-full md:space-x-12 md:flex-row sm:flex-col">
@@ -45,7 +60,8 @@ export default function UnitFormDates({ handleUpdate }) {
         size="md"
         classNames="px-14 self-end"
         rounded
-        onClick={handleUpdate}
+        onClick={handleUnitUpdate}
+        isLoading={loading}
       />
     </div>
   );
