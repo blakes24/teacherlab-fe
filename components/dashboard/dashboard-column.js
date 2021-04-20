@@ -24,6 +24,7 @@ export default function DashboardColumn({ user, subject, subjectName }) {
             subject={subject}
             closeAction={toggleUnitCard.bind({}, false)}
             showUnitCard={subjectHasUnit}
+            user={user}
           ></UnitCardContainer>
         ) : (
           <>
