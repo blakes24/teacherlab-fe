@@ -44,6 +44,7 @@ export default function UnitCardForm({
         value={unitNumber}
         type="number"
         label="unit number"
+        max={20}
         gray
         full
         required
