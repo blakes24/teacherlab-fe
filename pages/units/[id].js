@@ -5,13 +5,14 @@ import UnitFormDates from "../../components/unit/unit-form-dates";
 import UnitFormObjectives from "../../components/unit/unit-form-objectives";
 import UnitFormStandards from "../../components/unit/unit-form-standards";
 import UnitFormAssessment from "../../components/unit/unit-form-assessment";
+import UnitProficiencyChart from "../../components/unit/unit-proficiency-chart";
 import { useSelector, useDispatch } from "react-redux";
 import { setUnit } from "../../store/unit-slicer";
 import { getUnit } from "../../services/unit";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const FORM_SECTIONS = {
+const UNIT_FORM_SECTIONS = {
   planning: "planning",
   collaboration: "collaboration",
 };
@@ -20,8 +21,13 @@ export default function UnitForm() {
   const dispatch = useDispatch();
   const router = useRouter();
   const unit = useSelector((state) => state.unit);
+  const {
+    details: {
+      assessments: { formative },
+    },
+  } = unit;
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const [activeSection, setActiveSection] = useState(FORM_SECTIONS.planning);
+  const [activeSection, setActiveSection] = useState(UNIT_FORM_SECTIONS.planning);
 
   useEffect(() => {
     if (!router.isReady || !isAuthenticated) return;
@@ -46,23 +52,23 @@ export default function UnitForm() {
             <ul className="text-2xl font-light divide-x divide-black">
               <UnitFormNavLink
                 className="pr-3"
-                label={FORM_SECTIONS.planning}
+                label={UNIT_FORM_SECTIONS.planning}
                 setActiveSection={() =>
-                  setActiveSection(FORM_SECTIONS.planning)
+                  setActiveSection(UNIT_FORM_SECTIONS.planning)
                 }
-                active={activeSection === FORM_SECTIONS.planning}
+                active={activeSection === UNIT_FORM_SECTIONS.planning}
               />
               <UnitFormNavLink
                 className="pl-3"
-                label={FORM_SECTIONS.collaboration}
+                label={UNIT_FORM_SECTIONS.collaboration}
                 setActiveSection={() =>
-                  setActiveSection(FORM_SECTIONS.collaboration)
+                  setActiveSection(UNIT_FORM_SECTIONS.collaboration)
                 }
-                active={activeSection === FORM_SECTIONS.collaboration}
+                active={activeSection === UNIT_FORM_SECTIONS.collaboration}
               />
             </ul>
 
-            {activeSection === FORM_SECTIONS.planning && (
+            {activeSection === UNIT_FORM_SECTIONS.planning && (
               <>
                 <UnitFormSection showSaveButton={false}>
                   <UnitFormDates />
@@ -86,10 +92,10 @@ export default function UnitForm() {
               </>
             )}
 
-            {activeSection === FORM_SECTIONS.collaboration && (
+            {activeSection === UNIT_FORM_SECTIONS.collaboration && (
               <>
                 <UnitFormSection showSaveButton={false}>
-                  Chart and questions will go here
+                  <UnitProficiencyChart proficiencies={formative} />
                 </UnitFormSection>
               </>
             )}
