@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { addUnderscoresToString, generateRandomId } from "../../libs/utils";
+import { addUnderscoresToString } from "../../libs/utils";
 import cx from "classnames";
 
 const TYPES = {
@@ -22,6 +22,7 @@ export default function Input({
   full,
   placeholder,
   checked,
+  max = 100,
 }) {
   const inputClasses = cx(
     "mt-1 block rounded-md border-transparent focus:ring-0",
@@ -60,7 +61,7 @@ export default function Input({
             className={inputClasses}
             type="number"
             min="1"
-            max="20"
+            max={max}
             value={value}
             onChange={onChange}
             required={required}
@@ -107,4 +108,5 @@ Input.propTypes = {
   full: PropTypes.bool,
   gray: PropTypes.bool,
   checked: PropTypes.bool,
+  max: PropTypes.number,
 };
