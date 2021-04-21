@@ -30,7 +30,7 @@ export default function Dashboard({ user }) {
 
     const res = await getSubjects();
     setSubjectsByGrade(getSubjectsByGrade(res));
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <>
