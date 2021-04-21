@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 export default function UnitFormAssessment({ assessmentType }) {
   const dispatch = useDispatch();
   const { [assessmentType]: assessments } = useSelector(
-    (state) => state.unit.details.assessments
+    (state) => state.unit.planning.assessments
   );
   const [assessmentName, setAssessmentName] = useState();
   const [assessmentDate, setAssessmentDate] = useState();
