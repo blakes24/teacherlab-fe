@@ -75,7 +75,7 @@ export default function UnitFormStandards({ setId }) {
   const dispatch = useDispatch();
   const [standardsPayload, setStandardsPayload] = useState([]);
   const [selectedStandards, setSelectedStandards] = useState([]);
-  const standards = useSelector((state) => state.unit.details.standards);
+  const standards = useSelector((state) => state.unit.planning.standards);
 
   useEffect(() => {
     if (!setId) return;

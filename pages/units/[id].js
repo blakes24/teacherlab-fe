@@ -22,7 +22,7 @@ export default function UnitForm() {
   const router = useRouter();
   const unit = useSelector((state) => state.unit);
   const {
-    details: {
+    planning: {
       assessments: { formative },
     },
   } = unit;

@@ -3,7 +3,7 @@ import { setObjectives } from "../../store/unit-slicer";
 
 export default function UnitFormObjectives() {
   const dispatch = useDispatch();
-  const objectives = useSelector((state) => state.unit.details.objectives);
+  const objectives = useSelector((state) => state.unit.planning.objectives);
 
   return (
     <textarea

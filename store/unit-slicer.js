@@ -11,7 +11,8 @@ export const updateUnitThunk = createAsyncThunk(
       completed,
       number,
       title,
-      details,
+      planning,
+      collaboration,
       currentRequestId,
       loading,
     } = getState().unit;
@@ -27,7 +28,8 @@ export const updateUnitThunk = createAsyncThunk(
       completed,
       number,
       title,
-      details,
+      planning,
+      collaboration,
     });
 
     return response.data;
@@ -39,7 +41,7 @@ export const unitSlice = createSlice({
   initialState: {
     completed: false,
     subjectName: "",
-    details: {
+    planning: {
       standards: [],
       objectives: "",
       assessments: {
@@ -47,6 +49,7 @@ export const unitSlice = createSlice({
         summative: [],
       },
     },
+    collaboration: [],
     id: null,
     number: null,
     reviewDate: "",
@@ -73,31 +76,31 @@ export const unitSlice = createSlice({
     },
 
     setObjectives: (state, action) => {
-      state.details.objectives = action.payload;
+      state.planning.objectives = action.payload;
     },
 
     setStandards: (state, action) => {
-      state.details.standards.unshift(...action.payload);
+      state.planning.standards.unshift(...action.payload);
     },
 
     removeStandard: (state, action) => {
-      state.details.standards.splice(action.payload.index, 1);
+      state.planning.standards.splice(action.payload.index, 1);
     },
 
     addAssessment: (state, action) => {
-      state.details.assessments[action.payload.assessmentType].push(
+      state.planning.assessments[action.payload.assessmentType].push(
         action.payload.assessment
       );
     },
 
     updateAssessment: (state, action) => {
-      state.details.assessments[action.payload.assessmentType][
+      state.planning.assessments[action.payload.assessmentType][
         action.payload.index
       ][action.payload.field] = action.payload.value;
     },
 
     removeAssessment: (state, action) => {
-      state.details.assessments[action.payload.assessmentType].splice(
+      state.planning.assessments[action.payload.assessmentType].splice(
         action.payload.index,
         1
       );
@@ -114,12 +117,13 @@ export const unitSlice = createSlice({
       state.title = unit.title;
       state.id = unit.id;
       state.completed = unit.completed;
-      state.details.objectives = unit.details?.objectives || "";
-      state.details.standards = unit.details?.standards || [];
-      state.details.assessments.formative =
-        unit.details?.assessments?.formative || [];
-      state.details.assessments.summative =
-        unit.details?.assessments?.summative || [];
+      state.planning.objectives = unit.planning?.objectives || "";
+      state.planning.standards = unit.planning?.standards || [];
+      state.planning.assessments.formative =
+        unit.planning?.assessments?.formative || [];
+      state.planning.assessments.summative =
+        unit.planning?.assessments?.summative || [];
+      state.collaboration = unit.collaboration || [];
       state.setId = unit.setId;
     },
   },
