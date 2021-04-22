@@ -6,9 +6,11 @@ import UnitFormObjectives from "../../components/unit/unit-form-objectives";
 import UnitFormStandards from "../../components/unit/unit-form-standards";
 import UnitFormAssessment from "../../components/unit/unit-form-assessment";
 import UnitProficiencyChart from "../../components/unit/unit-proficiency-chart";
+import UnitFormCollaboration from "../../components/unit/unit-form-collaboration";
 import { useSelector, useDispatch } from "react-redux";
 import { setUnit } from "../../store/unit-slicer";
 import { getUnit } from "../../services/unit";
+import { getQuestions } from "../../services/question";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -28,6 +30,7 @@ export default function UnitForm() {
   } = unit;
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [activeSection, setActiveSection] = useState(UNIT_FORM_SECTIONS.planning);
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     if (!router.isReady || !isAuthenticated) return;
@@ -36,6 +39,9 @@ export default function UnitForm() {
     try {
       getUnit(id).then((unitData) => {
         dispatch(setUnit(unitData));
+        getQuestions(unitData.subjectId).then((questionData) => {
+          setQuestions(questionData);
+        });
       });
     } catch (e) {
       console.log(e);
@@ -96,6 +102,9 @@ export default function UnitForm() {
               <>
                 <UnitFormSection showSaveButton={false}>
                   <UnitProficiencyChart proficiencies={formative} />
+                </UnitFormSection>
+                <UnitFormSection tabText="Collaboration">
+                  <UnitFormCollaboration questions={questions} />
                 </UnitFormSection>
               </>
             )}
