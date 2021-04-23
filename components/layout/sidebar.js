@@ -20,6 +20,7 @@ import {
   faBookOpen,
   faFlask,
   faPlus,
+  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import cx from "classnames";
@@ -86,28 +87,30 @@ export default function SideBar() {
           className="border-t-2 border-white bg-blue"
           popperArrow
         >
-          <MenuItem>
+          <MenuItem
+            icon={<FontAwesomeIcon icon={faHome} className="cursor-pointer" />}
+          >
             <Link href="/">
               <a>DASHBOARD</a>
             </Link>
           </MenuItem>
           {subjects &&
-            subjects.map((s) => (
+            subjects.map((subject) => (
               <SubMenu
-                title={`${s.name} - ${s.grade}`}
+                title={`${subject.name} - ${subject.grade}`}
                 icon={
                   <FontAwesomeIcon
-                    icon={icons[s.name] || faBookOpen}
+                    icon={icons[subject.name] || faBookOpen}
                     className="cursor-pointer"
                   />
                 }
-                key={s.id}
+                key={subject.id}
               >
-                {s.units.length ? (
-                  s.units.map((u) => (
-                    <MenuItem key={u.id}>
-                      <Link href={`/units/${u.id}`}>
-                        <a>{`Unit ${u.number}`}</a>
+                {subject.units.length ? (
+                  subject.units.map((unit) => (
+                    <MenuItem key={unit.id}>
+                      <Link href={`/units/${unit.id}`}>
+                        <a>{`Unit ${unit.number}`}</a>
                       </Link>
                     </MenuItem>
                   ))
