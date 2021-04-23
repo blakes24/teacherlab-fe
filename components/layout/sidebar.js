@@ -1,7 +1,9 @@
 import { logout } from "../../services/auth";
+import { getSubjects } from "../../services/user";
 import { setIsAuthenticated } from "../../store/user-slicer";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   ProSidebar,
@@ -12,15 +14,21 @@ import {
   SidebarContent,
   SidebarFooter,
 } from "react-pro-sidebar";
-import { faGem, faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faChevronLeft, faBars } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import {
+  faChevronLeft,
+  faBars,
+  faBookOpen,
+  faFlask,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import cx from "classnames";
 
 export default function SideBar() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [subjects, setSubjects] = useState([]);
   const titleClasses = cx(
     "uppercase text-yellow text-x transition duration-200 ease-in-out self-center",
     {
@@ -30,6 +38,13 @@ export default function SideBar() {
   const footerClasses = cx("p-3 text-center uppercase", {
     "transform-gpu -translate-x-44 absolute -left-16": isCollapsed,
   });
+
+  const icons = { ELA: faBookOpen, MATH: faPlus, SCIENCE: faFlask };
+
+  useEffect(async () => {
+    const res = await getSubjects();
+    setSubjects(res);
+  }, []);
 
   function handleLogout() {
     logout();
@@ -71,18 +86,36 @@ export default function SideBar() {
           className="border-t-2 border-white bg-blue"
           popperArrow
         >
-          <MenuItem
-            icon={<FontAwesomeIcon icon={faGem} className="cursor-pointer" />}
-          >
-            Dashboard
+          <MenuItem>
+            <Link href="/">
+              <a>DASHBOARD</a>
+            </Link>
           </MenuItem>
-          <SubMenu
-            title="Components"
-            icon={<FontAwesomeIcon icon={faHeart} className="cursor-pointer" />}
-          >
-            <MenuItem>Component 1</MenuItem>
-            <MenuItem>Component 2</MenuItem>
-          </SubMenu>
+          {subjects &&
+            subjects.map((s) => (
+              <SubMenu
+                title={`${s.name} - ${s.grade}`}
+                icon={
+                  <FontAwesomeIcon
+                    icon={icons[s.name] || faBookOpen}
+                    className="cursor-pointer"
+                  />
+                }
+                key={s.id}
+              >
+                {s.units.length ? (
+                  s.units.map((u) => (
+                    <MenuItem key={u.id}>
+                      <Link href={`/units/${u.id}`}>
+                        <a>{`Unit ${u.number}`}</a>
+                      </Link>
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem>No Units Yet</MenuItem>
+                )}
+              </SubMenu>
+            ))}
         </Menu>
       </SidebarContent>
       <SidebarFooter>

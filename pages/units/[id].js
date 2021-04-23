@@ -46,7 +46,7 @@ export default function UnitForm() {
     } catch (e) {
       console.log(e);
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.query]);
 
   return (
     <>
