@@ -49,7 +49,7 @@ export const unitSlice = createSlice({
         summative: [],
       },
     },
-    collaboration: [],
+    collaboration: { answers: {}, reflection: "" },
     id: null,
     number: null,
     reviewDate: "",
@@ -106,6 +106,10 @@ export const unitSlice = createSlice({
       );
     },
 
+    addAnswer: (state, action) => {
+      state.collaboration.answers[action.payload.id] = action.payload.value;
+    },
+
     setUnit: (state, action) => {
       const unit = action.payload;
 
@@ -123,7 +127,7 @@ export const unitSlice = createSlice({
         unit.planning?.assessments?.formative || [];
       state.planning.assessments.summative =
         unit.planning?.assessments?.summative || [];
-      state.collaboration = unit.collaboration || [];
+      state.collaboration.answers = unit.collaboration.answers || {};
       state.setId = unit.setId;
     },
   },
@@ -164,6 +168,7 @@ export const {
   addAssessment,
   updateAssessment,
   removeAssessment,
+  addAnswer,
   setUnit,
 } = unitSlice.actions;
 
