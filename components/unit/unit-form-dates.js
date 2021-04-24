@@ -1,5 +1,6 @@
 import Input from "../../components/common/input";
 import Button from "../../components/common/button";
+import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUnitThunk } from "../../store/unit-slicer";
 import {
@@ -8,14 +9,14 @@ import {
   setReviewDate,
 } from "../../store/unit-slicer";
 import { useState } from "react";
-import PropTypes from "prop-types";
 
-export default function UnitFormDates({ handleUpdate }) {
+export default function UnitFormDates() {
   const dispatch = useDispatch();
   const startDate = useSelector((state) => state.unit.startDate);
   const endDate = useSelector((state) => state.unit.endDate);
   const reviewDate = useSelector((state) => state.unit.reviewDate);
   const unitId = useSelector((state) => state.unit.id);
+  const unitNumber = useSelector((state) => state.unit.number);
   const [loading, setIsLoading] = useState(false);
 
   const handleUnitUpdate = async () => {
@@ -23,6 +24,7 @@ export default function UnitFormDates({ handleUpdate }) {
     try {
       await dispatch(updateUnitThunk(unitId));
       setIsLoading(false);
+      toast.success(`Unit ${unitNumber} dates have been updated!`);
     } catch (e) {
       setIsLoading(false);
       console.log(e);
@@ -66,7 +68,3 @@ export default function UnitFormDates({ handleUpdate }) {
     </div>
   );
 }
-
-UnitFormDates.propTypes = {
-  handleUpdate: PropTypes.func,
-};
