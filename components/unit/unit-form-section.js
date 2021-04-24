@@ -1,4 +1,5 @@
 import Button from "../../components/common/button";
+import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUnitThunk } from "../../store/unit-slicer";
 import PropTypes from "prop-types";
@@ -11,6 +12,7 @@ export default function UnitFormSection({
 }) {
   const dispatch = useDispatch();
   const unitId = useSelector((state) => state.unit.id);
+  const unitNumber = useSelector((state) => state.unit.number);
   const [loading, setIsLoading] = useState(false);
 
   const handleUnitUpdate = async () => {
@@ -18,6 +20,7 @@ export default function UnitFormSection({
     try {
       await dispatch(updateUnitThunk(unitId));
       setIsLoading(false);
+      toast.success(`Unit ${unitNumber} has been updated!`);
     } catch (e) {
       console.log(e);
       setIsLoading(false);

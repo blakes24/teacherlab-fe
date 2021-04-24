@@ -1,5 +1,6 @@
 import "../styles/sidebar.scss";
 import "tailwindcss/tailwind.css";
+import "react-toastify/dist/ReactToastify.css";
 import UserContext from "../components/context/user-context";
 import Wrapper from "../components/layout/wrapper";
 import store from "../store/index";
