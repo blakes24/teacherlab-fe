@@ -36,7 +36,7 @@ export default function UnitProficiencyChart({ proficiencies }) {
         options={{
           title: "Formative Assessment Data",
           hAxis: {
-            title: "Unit Number",
+            title: "Assessment Number",
             gridlines: {
               color: "#ffffff",
               interval: 1,
@@ -47,7 +47,7 @@ export default function UnitProficiencyChart({ proficiencies }) {
             gridlines: {
               color: "#ffffff",
             },
-            format: '#',
+            format: "#",
           },
           legend: {
             position: "top",
