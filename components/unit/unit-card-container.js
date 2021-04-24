@@ -3,25 +3,19 @@ import UnitCard from "./unit-card";
 import PropTypes from "prop-types";
 import { UNIT_FORM_DATA_SYMBOLS } from "../../libs/constants";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import cx from "classnames";
 
 export default function UnitCardContainer({
   closeAction,
   subject,
   showUnitCard,
-  user,
 }) {
-  const router = useRouter();
   const [unitNumber, setUnitNumber] = useState("1");
   const [unitTitle, setUnitTitle] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [reviewDate, setReviewDate] = useState("");
   const firstUnit = subject.units[0];
-  const unitCardClasses = cx("bg-blue w-72 mx-auto p-7 pt-4", {
-    "cursor-pointer": !user.admin,
-  });
+  const unitCardClasses = "bg-blue w-72 mx-auto p-7 pt-4"
 
   function handleUnitFormDataChange(inputSymbol, event) {
     const value = event.target.value;
@@ -51,14 +45,9 @@ export default function UnitCardContainer({
     closeAction();
   }
 
-  function navigateToUnit(unitId) {
-    router.push(`/units/${unitId}`);
-  }
-
   return (
     <div
       className={unitCardClasses}
-      onClick={() => navigateToUnit(firstUnit?.id)}
     >
       {showUnitCard ? (
         <UnitCard unit={firstUnit} subjectName={subject.name}></UnitCard>
