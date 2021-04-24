@@ -7,6 +7,7 @@ import UnitFormStandards from "../../components/unit/unit-form-standards";
 import UnitFormAssessment from "../../components/unit/unit-form-assessment";
 import UnitProficiencyChart from "../../components/unit/unit-proficiency-chart";
 import UnitFormCollaboration from "../../components/unit/unit-form-collaboration";
+import UnitFormReflection from "../../components/unit/unit-form-reflection";
 import { useSelector, useDispatch } from "react-redux";
 import { setUnit } from "../../store/unit-slicer";
 import { getUnit } from "../../services/unit";
@@ -105,6 +106,9 @@ export default function UnitForm() {
                 </UnitFormSection>
                 <UnitFormSection tabText="Collaboration">
                   <UnitFormCollaboration questions={questions} />
+                </UnitFormSection>
+                <UnitFormSection tabText="End-of-Unit Reflection">
+                  <UnitFormReflection />
                 </UnitFormSection>
               </>
             )}

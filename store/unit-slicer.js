@@ -110,6 +110,10 @@ export const unitSlice = createSlice({
       state.collaboration.answers[action.payload.id] = action.payload.value;
     },
 
+    setReflection: (state, action) => {
+      state.collaboration.reflection = action.payload;
+    },
+
     setUnit: (state, action) => {
       const unit = action.payload;
 
@@ -128,6 +132,7 @@ export const unitSlice = createSlice({
       state.planning.assessments.summative =
         unit.planning?.assessments?.summative || [];
       state.collaboration.answers = unit.collaboration.answers || {};
+      state.collaboration.reflection = unit.collaboration.reflection || "";
       state.setId = unit.setId;
     },
   },
@@ -169,6 +174,7 @@ export const {
   updateAssessment,
   removeAssessment,
   addAnswer,
+  setReflection,
   setUnit,
 } = unitSlice.actions;
 
