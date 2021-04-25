@@ -3,7 +3,7 @@ import { getSubjects } from "../../services/user";
 import { setIsAuthenticated } from "../../store/user-slicer";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import ActiveLink from "./active-link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   ProSidebar,
@@ -21,9 +21,11 @@ import {
   faFlask,
   faPlus,
   faHome,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import cx from "classnames";
+import ReactTooltip from "react-tooltip";
 
 export default function SideBar() {
   const dispatch = useDispatch();
@@ -36,9 +38,6 @@ export default function SideBar() {
       "transform-gpu -translate-x-44 absolute -left-16": isCollapsed,
     }
   );
-  const footerClasses = cx("p-3 text-center uppercase", {
-    "transform-gpu -translate-x-44 absolute -left-16": isCollapsed,
-  });
 
   const icons = { ELA: faBookOpen, MATH: faPlus, SCIENCE: faFlask };
 
@@ -90,9 +89,9 @@ export default function SideBar() {
           <MenuItem
             icon={<FontAwesomeIcon icon={faHome} className="cursor-pointer" />}
           >
-            <Link href="/">
+            <ActiveLink href="/">
               <a>DASHBOARD</a>
-            </Link>
+            </ActiveLink>
           </MenuItem>
           {subjects &&
             subjects.map((subject) => (
@@ -109,9 +108,9 @@ export default function SideBar() {
                 {subject.units.length ? (
                   subject.units.map((unit) => (
                     <MenuItem key={unit.id}>
-                      <Link href={`/units/${unit.id}`}>
+                      <ActiveLink href={`/units/${unit.id}`}>
                         <a>{`Unit ${unit.number}`}</a>
-                      </Link>
+                      </ActiveLink>
                     </MenuItem>
                   ))
                 ) : (
@@ -122,13 +121,23 @@ export default function SideBar() {
         </Menu>
       </SidebarContent>
       <SidebarFooter>
-        <div
-          className={footerClasses}
-          role="button"
-          onClick={() => handleLogout()}
-        >
-          Logout
-        </div>
+        <Menu iconShape="circle">
+          {isCollapsed && <ReactTooltip id="logout" />}
+          <MenuItem
+            onClick={() => handleLogout()}
+            data-tip="Log Out"
+            data-for="logout"
+            data-background-color="rgb(29 57 69)"
+            data-offset="{'left':5}"
+            data-effect="solid"
+            data-place="right"
+            icon={
+              <FontAwesomeIcon icon={faSignOutAlt} className="cursor-pointer" />
+            }
+          >
+            LOG OUT
+          </MenuItem>
+        </Menu>
       </SidebarFooter>
     </ProSidebar>
   );
