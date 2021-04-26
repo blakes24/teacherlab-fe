@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "./config";
 import { isAuthenticated } from "./auth";
 
 const CONTENT_TYPE_JSON = {
@@ -14,9 +13,10 @@ const fetcher = (...args) => {
     },
   };
 
-  return fetch(`${API_BASE_URL.local}${args[0]}`, options).then((res) =>
-    res.json()
-  );
+  return fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${args[0]}`,
+    options
+  ).then((res) => res.json());
 };
 
 const protectedFetcher = (...args) => {
@@ -31,9 +31,10 @@ const protectedFetcher = (...args) => {
     },
   };
 
-  return fetch(`${API_BASE_URL.local}${args[0]}`, options).then((res) =>
-    res.json()
-  );
+  return fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${args[0]}`,
+    options
+  ).then((res) => res.json());
 };
 
 export { fetcher, protectedFetcher };
