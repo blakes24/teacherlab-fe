@@ -58,7 +58,7 @@ export default function UnitProficiencyChart({ proficiencies }) {
             width: "70%",
             height: "70%",
           },
-          colors: [COLORS.green, COLORS.yellow, "red"],
+          colors: ["red", COLORS.yellow, COLORS.green],
           curveType: "function",
         }}
         rootProps={{ "data-testid": "1" }}
