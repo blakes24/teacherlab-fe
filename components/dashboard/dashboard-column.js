@@ -3,6 +3,7 @@ import Button from "../common/button";
 import { SUBJECTS } from "../../libs/constants";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import cx from "classnames";
 
 export default function DashboardColumn({ user, subject, subjectName }) {
   const [showUnitCard, setShowUnitCard] = useState(false);
@@ -28,7 +29,12 @@ export default function DashboardColumn({ user, subject, subjectName }) {
           ></UnitCardContainer>
         ) : (
           <>
-            <div className="w-40 h-40 bg-abc bg-center bg-contain bg-no-repeat bg-blue rounded-full self-center"></div>
+            <div
+              className={cx(
+                `bg-${subjectName.toLowerCase()}`,
+                "w-40 h-40 bg-center bg-contain bg-no-repeat bg-blue rounded-full self-center"
+              )}
+            ></div>
 
             <div className="text-center text-sm mt-4 w-80 self-center">
               You don’t have any {subjectName} units yet!{" "}

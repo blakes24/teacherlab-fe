@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: (theme) => ({
-        abc: "url('/abc.png')",
+        ela: "url('/abc.png')",
+        math: "url('/math.png')",
+        science: "url('/science.png')",
       }),
     },
     colors: {
