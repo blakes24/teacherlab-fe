@@ -40,16 +40,19 @@ export default function Dashboard({ user }) {
             subject={getSubjectData(SUBJECTS.ela)}
             subjectName={SUBJECTS.ela}
             user={user}
+            imgClassName="bg-ela"
           ></DashboardColumn>
           <DashboardColumn
             subject={getSubjectData(SUBJECTS.math)}
             subjectName={SUBJECTS.math}
             user={user}
+            imgClassName="bg-math"
           ></DashboardColumn>
           <DashboardColumn
             subject={getSubjectData(SUBJECTS.science)}
             subjectName={SUBJECTS.science}
             user={user}
+            imgClassName="bg-science"
           ></DashboardColumn>
         </div>
       )}

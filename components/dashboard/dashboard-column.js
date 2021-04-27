@@ -5,7 +5,12 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import cx from "classnames";
 
-export default function DashboardColumn({ user, subject, subjectName }) {
+export default function DashboardColumn({
+  user,
+  subject,
+  subjectName,
+  imgClassName,
+}) {
   const [showUnitCard, setShowUnitCard] = useState(false);
   let subjectHasUnit;
 
@@ -31,7 +36,7 @@ export default function DashboardColumn({ user, subject, subjectName }) {
           <>
             <div
               className={cx(
-                `bg-${subjectName.toLowerCase()}`,
+                imgClassName,
                 "w-40 h-40 bg-center bg-contain bg-no-repeat bg-blue rounded-full self-center"
               )}
             ></div>
@@ -61,5 +66,5 @@ DashboardColumn.propTypes = {
   subjectName: PropTypes.oneOf(Object.values(SUBJECTS)).isRequired,
   subject: PropTypes.object,
   user: PropTypes.object,
-  // imageSrc: PropTypes.string.isRequired,
+  imgClassName: PropTypes.string,
 };
