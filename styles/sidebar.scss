@@ -12,4 +12,8 @@ $sidebar-width: 200px !default;
   color: #E9C46A !important;
 }
 
+.pro-sidebar-header {
+  border: none !important;
+}
+
 @import '~react-pro-sidebar/dist/scss/styles.scss';

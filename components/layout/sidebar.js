@@ -30,7 +30,7 @@ import ReactTooltip from "react-tooltip";
 export default function SideBar() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [subjects, setSubjects] = useState([]);
   const titleClasses = cx(
     "uppercase text-yellow text-x transition duration-200 ease-in-out self-center",
@@ -52,12 +52,16 @@ export default function SideBar() {
     router.push("/login");
   }
 
+  function formatLinkHeader({name, grade}) {
+    return `${name} - ${grade}`;
+  }
+
   return (
     <ProSidebar
       collapsed={isCollapsed}
       className="border-r-2 border-white bg-blue"
     >
-      <SidebarHeader className="px-6 py-3 h-14 bg-blue flex">
+      <SidebarHeader className="px-6 py-3 h-14 bg-blue flex border-blue">
         <div className={titleClasses}>Menu</div>
         <div
           role="button"
@@ -83,7 +87,7 @@ export default function SideBar() {
       <SidebarContent>
         <Menu
           iconShape="circle"
-          className="border-t-2 border-white bg-blue"
+          className="bg-blue"
           popperArrow
         >
           <MenuItem
@@ -96,7 +100,7 @@ export default function SideBar() {
           {subjects &&
             subjects.map((subject) => (
               <SubMenu
-                title={`${subject.name} - ${subject.grade}`}
+                title={formatLinkHeader(subject)}
                 icon={
                   <FontAwesomeIcon
                     icon={icons[subject.name] || faBookOpen}
@@ -105,6 +109,7 @@ export default function SideBar() {
                 }
                 key={subject.id}
               >
+                {isCollapsed && formatLinkHeader(subject)}
                 {subject.units.length ? (
                   subject.units.map((unit) => (
                     <MenuItem key={unit.id}>
