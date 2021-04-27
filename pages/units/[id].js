@@ -30,9 +30,7 @@ export default function UnitForm() {
     },
   } = unit;
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const [activeSection, setActiveSection] = useState(
-    UNIT_FORM_SECTIONS.planning
-  );
+  const [activeSection, setActiveSection] = useState(UNIT_FORM_SECTIONS.planning);
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
@@ -87,12 +85,8 @@ export default function UnitForm() {
                   <UnitFormObjectives />
                 </UnitFormSection>
 
-                <UnitFormSection tabText="Standards" showSaveButton={false}>
-                  <UnitFormStandards
-                    setId={unit.setId}
-                    unitNumber={unit.number}
-                    unitId={unit.id}
-                  ></UnitFormStandards>
+                <UnitFormSection tabText="Standards">
+                  <UnitFormStandards setId={unit.setId}></UnitFormStandards>
                 </UnitFormSection>
 
                 <UnitFormSection tabText="Formative Assessment">

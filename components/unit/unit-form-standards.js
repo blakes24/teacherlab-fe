@@ -1,15 +1,12 @@
 import Button from "../common/button";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { updateUnitThunk } from "../../store/unit-slicer";
-import { toast } from "react-toastify";
 import { getStandardsBySetId } from "../../services/standard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import Select, { components } from "react-select";
 import { setStandards, removeStandard } from "../../store/unit-slicer";
 import chroma from "chroma-js";
-import PropTypes from "prop-types";
 
 const { yellow, lightGrey } = require("../../libs/theme");
 const CODE_DESCRIPTION_DELIMITER = " - ";
@@ -74,12 +71,11 @@ const selectStyles = {
   }),
 };
 
-export default function UnitFormStandards({ setId, unitNumber, unitId }) {
+export default function UnitFormStandards({ setId }) {
   const dispatch = useDispatch();
   const [standardsPayload, setStandardsPayload] = useState([]);
   const [selectedStandards, setSelectedStandards] = useState([]);
   const standards = useSelector((state) => state.unit.planning.standards);
-  const [loading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!setId) return;
@@ -89,23 +85,12 @@ export default function UnitFormStandards({ setId, unitNumber, unitId }) {
     });
   }, [setId]);
 
-  const handleUnitUpdate = async () => {
-    setIsLoading(true);
-    try {
-      await dispatch(updateUnitThunk(unitId));
-      setIsLoading(false);
-      toast.success(`Unit ${unitNumber} standards has been updated.`);
-    } catch (e) {
-      console.log(e);
-      setIsLoading(false);
-    }
-  };
-
-  async function handleSelectedStandards() {
+  function handleSelectedStandards() {
+    if (selectedStandards.length === 0) return;
     // react-select expects a {value, label} data structure, here
     // we format back to original shape to keep consistent with
     // API response
-    await dispatch(
+    dispatch(
       setStandards(
         selectedStandards.map((standard) => ({
           code: standard.value,
@@ -114,7 +99,6 @@ export default function UnitFormStandards({ setId, unitNumber, unitId }) {
       )
     );
     setSelectedStandards([]);
-    handleUnitUpdate();
   }
 
   function handleRemoveStandard(index) {
@@ -140,6 +124,13 @@ export default function UnitFormStandards({ setId, unitNumber, unitId }) {
             value={selectedStandards}
             isMulti
             placeholder="Search standards by code or description..."
+          />
+          <Button
+            text="Add Standards"
+            size="md"
+            classNames="w-40"
+            rounded
+            onClick={handleSelectedStandards}
           />
         </div>
 
@@ -181,20 +172,6 @@ export default function UnitFormStandards({ setId, unitNumber, unitId }) {
           </div>
         )}
       </div>
-      <Button
-        text="Update Standards"
-        size="md"
-        classNames="w-48 self-end"
-        rounded
-        onClick={handleSelectedStandards}
-        isLoading={loading}
-      />
     </>
   );
 }
-
-UnitFormStandards.propTypes = {
-  setId: PropTypes.number,
-  unitNumber: PropTypes.number,
-  unitId: PropTypes.number,
-};

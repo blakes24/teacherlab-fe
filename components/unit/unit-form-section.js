@@ -20,7 +20,7 @@ export default function UnitFormSection({
     try {
       await dispatch(updateUnitThunk(unitId));
       setIsLoading(false);
-      toast.success(`Unit ${unitNumber} has been updated.`);
+      toast.success(`Unit ${unitNumber} has been updated!`);
     } catch (e) {
       console.log(e);
       setIsLoading(false);
