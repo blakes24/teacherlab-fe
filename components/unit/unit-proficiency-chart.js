@@ -6,6 +6,7 @@ const COLORS = require("../../libs/theme");
 
 export default function UnitProficiencyChart({ proficiencies }) {
   const chartData = [...proficiencies]
+    .filter((proficiency) => proficiency.completed)
     .sort((a, b) => {
       return new Date(a.date) - new Date(b.date);
     })
