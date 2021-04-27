@@ -15,6 +15,14 @@ export default function Wrapper({ children }) {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const contextClass = {
+    success: "bg-green",
+    error: "bg-red-600",
+    info: "bg-gray-600",
+    warning: "bg-yellow",
+    default: "bg-blue",
+  };
+
   useEffect(() => {
     if (!isAuthenticated()) {
       router.push("/login");
@@ -32,8 +40,12 @@ export default function Wrapper({ children }) {
 
       <ToastContainer
         className="text-center"
+        toastClassName={({ type }) =>
+          contextClass[type || "default"] +
+          " relative flex p-1 pb-2 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+        }
         position="bottom-center"
-        autoClose={3000}
+        autoClose={2000}
         pauseOnHover={false}
       />
 
