@@ -35,8 +35,6 @@ export default function AssessmentTableRow({
   }
 
   function handleUpdate({ field, value, index }) {
-    console.log(field, value, index);
-
     dispatch(
       updateAssessment({
         value,

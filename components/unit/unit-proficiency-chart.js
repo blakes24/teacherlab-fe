@@ -17,54 +17,62 @@ export default function UnitProficiencyChart({ proficiencies }) {
       Number(proficiency.proficient),
     ]);
 
-  return (
-    <div className="self-center w-full">
-      <Chart
-        className="self-center"
-        width={"100%"}
-        height={"500px"}
-        chartType="LineChart"
-        loader={<div>Loading Chart</div>}
-        data={[
-          [
-            "unit number",
-            ASSESSMENT_VALUES.levelOne.value,
-            ASSESSMENT_VALUES.levelTwo.value,
-            ASSESSMENT_VALUES.levelThree.value,
-          ],
-          ...chartData,
-        ]}
-        options={{
-          title: "Formative Assessment Data",
-          hAxis: {
-            title: "Assessment Number",
-            gridlines: {
-              color: "#ffffff",
-              interval: 1,
-            },
-          },
-          vAxis: {
-            title: "Percentage Score",
-            gridlines: {
-              color: "#ffffff",
-            },
-            format: "#",
-          },
-          legend: {
-            position: "top",
-          },
-          pointSize: 8,
-          chartArea: {
-            width: "70%",
-            height: "70%",
-          },
-          colors: ["red", COLORS.yellow, COLORS.green],
-          curveType: "function",
-        }}
-        rootProps={{ "data-testid": "1" }}
-      />
-    </div>
-  );
+    return (
+      <div className="self-center w-full">
+        {chartData.length > 0 ? (
+          <Chart
+            className="self-center"
+            width={"100%"}
+            height={"500px"}
+            chartType="LineChart"
+            loader={<div>Loading Chart</div>}
+            data={[
+              [
+                "unit number",
+                ASSESSMENT_VALUES.levelOne.value,
+                ASSESSMENT_VALUES.levelTwo.value,
+                ASSESSMENT_VALUES.levelThree.value,
+              ],
+              ...chartData,
+            ]}
+            options={{
+              title: "Formative Assessment Data",
+              hAxis: {
+                title: "Assessment Number",
+                gridlines: {
+                  color: "#ffffff",
+                  interval: 1,
+                },
+              },
+              vAxis: {
+                title: "Percentage Score",
+                gridlines: {
+                  color: "#ffffff",
+                },
+                format: "#",
+              },
+              legend: {
+                position: "top",
+              },
+              pointSize: 8,
+              chartArea: {
+                width: "70%",
+                height: "70%",
+              },
+              colors: ["red", COLORS.yellow, COLORS.green],
+              curveType: "function",
+            }}
+            rootProps={{ "data-testid": "1" }}
+          />
+        ) : (
+          <div className="bg-gray-100 p-3 w-full">
+            <div className="ml-1">
+              You don't have any completed assessments yet
+            </div>
+          </div>
+        )}
+      </div>
+    );
 }
 
 UnitProficiencyChart.propTypes = {

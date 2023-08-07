@@ -107,7 +107,10 @@ export default function UnitForm() {
 
             {activeSection === UNIT_FORM_SECTIONS.collaboration && (
               <>
-                <UnitFormSection showSaveButton={false}>
+                <UnitFormSection
+                  tabText="Assessment Graph"
+                  showSaveButton={false}
+                >
                   <UnitProficiencyChart proficiencies={formative} />
                 </UnitFormSection>
                 <UnitFormSection tabText="Collaboration">
